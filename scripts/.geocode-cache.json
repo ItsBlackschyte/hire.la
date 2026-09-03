@@ -79,5 +79,32 @@
     "country": "United States",
     "countryCode": "us",
     "region": "California"
+  },
+  "Surabaya, East Java, Indonesia": {
+    "lat": -7.2462836,
+    "lng": 112.7377674,
+    "country": "Indonesia",
+    "countryCode": "id",
+    "region": "Jawa Timur"
+  },
+  "St. John's, NL, Canada": {
+    "lat": 47.5646794,
+    "lng": -52.7066964,
+    "country": "Canada",
+    "countryCode": "ca",
+    "region": "Newfoundland and Labrador"
+  },
+  "Ho Chi Minh City, Ho Chi Minh City, Vietnam": {
+    "lat": 10.7956276,
+    "lng": 106.7673385,
+    "country": "Việt Nam",
+    "countryCode": "vn"
+  },
+  "Cairo, Cairo Governorate, Egypt": {
+    "lat": 30.0443879,
+    "lng": 31.2357257,
+    "country": "مصر",
+    "countryCode": "eg",
+    "region": "القاهرة"
   }
 }
