@@ -1,0 +1,80 @@
+/**
+ * Nominatim (OpenStreetMap) geocoding for the worker — throttled to the
+ * 1 request/second policy and used only for strings never seen before
+ * (see location_aliases). No key, no cost.
+ */
+
+const UA = 'hire-la-worker/1.0 (job map; contact hello@hire.la)';
+let last = 0;
+
+async function throttle() {
+  const wait = 1100 - (Date.now() - last);
+  if (wait > 0) await new Promise((r) => setTimeout(r, wait));
+  last = Date.now();
+}
+
+interface NominatimResult {
+  lat: string;
+  lon: string;
+  display_name: string;
+  class?: string;
+  type?: string;
+  address?: Record<string, string>;
+}
+
+async function query(params: Record<string, string>): Promise<NominatimResult[]> {
+  await throttle();
+  const q = new URLSearchParams({ format: 'jsonv2', addressdetails: '1', 'accept-language': 'en', ...params });
+  const res = await fetch(`https://nominatim.openstreetmap.org/search?${q}`, { headers: { 'user-agent': UA } });
+  if (!res.ok) return [];
+  return (await res.json()) as NominatimResult[];
+}
+
+export interface GeocodedCity {
+  name: string;
+  region: string | null;
+  country: string;
+  countryCode: string | null;
+  lat: number;
+  lng: number;
+}
+
+/** Resolve a free-text location ("Pune, Maharashtra, India") to a city. */
+export async function geocodeCity(text: string): Promise<GeocodedCity | null> {
+  const results = await query({ q: text, limit: '1' });
+  const r = results[0];
+  if (!r?.address) return null;
+  const a = r.address;
+  const name = a.city ?? a.town ?? a.village ?? a.municipality ?? a.city_district ?? a.county;
+  if (!name || !a.country) return null; // country-only strings ("United States") aren't a city
+  return {
+    name,
+    region: a.state ?? a.region ?? null,
+    country: a.country,
+    countryCode: a.country_code ?? null,
+    lat: parseFloat(r.lat),
+    lng: parseFloat(r.lon),
+  };
+}
+
+const POI_CLASSES = new Set(['office', 'building', 'amenity', 'shop', 'industrial', 'commercial', 'landuse', 'man_made']);
+
+/** Try to find the company's actual office in OSM near a city. */
+export async function findCompanyPoi(
+  company: string,
+  city: GeocodedCity | { name: string; lat: number; lng: number },
+): Promise<{ lat: number; lng: number; display: string } | null> {
+  const results = await query({ q: `${company}, ${city.name}`, limit: '3' });
+  const needle = company.toLowerCase().split(/\s+/)[0];
+  for (const r of results) {
+    const name = r.display_name.toLowerCase();
+    if (!name.includes(needle)) continue;
+    if (r.class && !POI_CLASSES.has(r.class)) continue;
+    const lat = parseFloat(r.lat);
+    const lng = parseFloat(r.lon);
+    const km = Math.hypot((lat - city.lat) * 111, (lng - city.lng) * 111 * Math.cos((city.lat * Math.PI) / 180));
+    if (km > 60) continue;
+    return { lat, lng, display: r.display_name };
+  }
+  return null;
+}

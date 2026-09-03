@@ -1,0 +1,63 @@
+{
+  "allowedCountries": [
+    "us",
+    "in",
+    "gb",
+    "ie",
+    "ca",
+    "de",
+    "nl",
+    "fr",
+    "se",
+    "dk",
+    "ch",
+    "es",
+    "pt",
+    "il",
+    "sg",
+    "au",
+    "nz",
+    "ae"
+  ],
+  "todo": {
+    "tier2": [
+      "pl",
+      "cz",
+      "br",
+      "mx",
+      "ar",
+      "co",
+      "ee",
+      "ro",
+      "ua"
+    ],
+    "tier3": [
+      "jp",
+      "kr",
+      "cn",
+      "tw"
+    ]
+  },
+  "scanCities": {
+    "us": [
+      "Los Angeles",
+      "San Francisco",
+      "New York",
+      "Seattle",
+      "Austin",
+      "Boston",
+      "Chicago",
+      "Denver",
+      "San Diego",
+      "Washington, D.C."
+    ],
+    "in": [
+      "Pune",
+      "Mumbai",
+      "Bengaluru",
+      "Hyderabad",
+      "Chennai",
+      "Delhi NCR"
+    ]
+  }
+}

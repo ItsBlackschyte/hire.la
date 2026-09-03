@@ -1,0 +1,91 @@
+name: onboard-companies
+
+# One click: discover companies → validate & seed → fetch logos → commit
+# companies.csv + public/logos back to the repo → run the worker.
+# Run migrations in Supabase first (SETUP.md §2).
+
+on:
+  workflow_dispatch:
+    inputs:
+      sources:
+        description: "Where to find companies"
+        type: choice
+        default: "yc+harvest"
+        options: ["yc+harvest", "yc", "harvest", "none (seed CSV as-is)"]
+      hiring_only:
+        description: "YC: only companies flagged as hiring"
+        type: boolean
+        default: false
+      harvest_limit:
+        description: "Harvest: max boards to add (0 = all ~1,800)"
+        default: "0"
+      geocode_budget:
+        description: "Max geocoder lookups for the worker run"
+        default: "3000"
+      poi_lookup:
+        description: "Look up real office locations in OpenStreetMap"
+        type: boolean
+        default: false
+
+# Never overlap with the scheduled worker.
+concurrency:
+  group: hire-la-worker
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  onboard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      LOGO_DEV_TOKEN: ${{ secrets.LOGO_DEV_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Discover — YC
+        if: ${{ startsWith(inputs.sources, 'yc') }}
+        run: npm run discover -- --yc ${{ inputs.hiring_only && '--hiring' || '' }}
+
+      - name: Discover — harvested boards
+        if: ${{ contains(inputs.sources, 'harvest') }}
+        run: |
+          if [ "${{ inputs.harvest_limit }}" = "0" ]; then
+            npm run discover -- --harvest --all
+          else
+            npm run discover -- --harvest --limit ${{ inputs.harvest_limit }}
+          fi
+
+      - name: Seed (validate tokens, insert companies)
+        run: npm run seed
+
+      - name: Logos
+        run: npm run logos
+
+      - name: Commit companies.csv + logos back to the repo
+        run: |
+          git config user.name "hire-la-bot"
+          git config user.email "bot@hire.la"
+          git add companies.csv public/logos scripts/.geocode-cache.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "Nothing new to commit."
+          else
+            git commit -m "onboard: $(date -u +%Y-%m-%d) — companies + logos"
+            git push
+          fi
+
+      - name: Worker (ingest all jobs)
+        run: npx tsx worker/fetch-jobs.ts
+        env:
+          GEOCODE_BUDGET: ${{ inputs.geocode_budget }}
+          POI_LOOKUP: ${{ inputs.poi_lookup && '1' || '0' }}

@@ -1,17 +1,17 @@
 import type { AtsAdapter, NormalizedJob } from './types';
-import { decodeEntities, fetchJson, inferWorkplace } from './shared';
+import { fetchJson, inferWorkplace } from './shared';
 
 /**
  * Greenhouse job board adapter.
  * Public endpoint, no auth: boards-api.greenhouse.io/v1/boards/{token}/jobs
- * `content=true` includes the full job description (HTML-escaped).
+ * Descriptions are NOT fetched here (see lib/ats-description.ts) — keeps the
+ * payload small: SpaceX's board is ~1 MB without content, ~15 MB with.
  */
 
 interface GhJob {
   id: number;
   title: string;
   absolute_url: string;
-  content?: string;
   updated_at?: string;
   first_published?: string;
   location?: { name?: string };
@@ -21,7 +21,7 @@ interface GhJob {
 
 export const greenhouse: AtsAdapter = async (token) => {
   const data = (await fetchJson(
-    `https://boards-api.greenhouse.io/v1/boards/${encodeURIComponent(token)}/jobs?content=true`,
+    `https://boards-api.greenhouse.io/v1/boards/${encodeURIComponent(token)}/jobs`,
   )) as { jobs?: GhJob[] };
 
   if (!Array.isArray(data.jobs)) {
@@ -36,7 +36,6 @@ export const greenhouse: AtsAdapter = async (token) => {
       department: j.departments?.[0]?.name || undefined,
       locationText,
       applyUrl: j.absolute_url,
-      descriptionHtml: j.content ? decodeEntities(j.content) : undefined,
       postedAt: j.first_published ?? j.updated_at,
       workplaceType: inferWorkplace(locationText),
     };

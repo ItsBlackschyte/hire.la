@@ -11,11 +11,15 @@
     "fixtures": "tsx scripts/fixtures.ts",
     "typecheck": "tsc --noEmit",
     "ats": "tsx worker/test-adapter.ts",
-    "worker": "tsx worker/fetch-jobs.ts"
+    "worker": "tsx worker/fetch-jobs.ts",
+    "logos": "tsx scripts/logos.ts",
+    "discover": "tsx scripts/discover.ts"
   },
   "dependencies": {
+    "@fontsource-variable/inter": "^5.3.0",
     "@supabase/supabase-js": "^2.45.0",
     "dotenv": "^16.4.5",
+    "leaflet": "^1.9.4",
     "maplibre-gl": "^5.24.0",
     "next": "16.3.4",
     "react": "19.2.8",
@@ -24,6 +28,7 @@
     "supercluster": "^9.0.0"
   },
   "devDependencies": {
+    "@types/leaflet": "^1.9.22",
     "@types/node": "^22.5.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",

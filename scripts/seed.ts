@@ -18,6 +18,8 @@ import { config } from 'dotenv';
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { slugify } from '../lib/slug';
 import { parseCsv } from '../lib/csv';
+import { canonicalCitySlug, matchCity } from '../lib/geo-dictionary';
+import { pMap } from '../lib/pmap';
 
 config({ path: '.env.local' });
 config();
@@ -83,25 +85,50 @@ async function validateToken(ats: CsvRow['ats_type'], token: string): Promise<To
 
 // ------------------------------------------------------------------ Geocoding
 
+interface GeoHit { lat: number; lng: number; country?: string; countryCode?: string; region?: string }
 const CACHE_PATH = 'scripts/.geocode-cache.json';
-const cache: Record<string, { lat: number; lng: number }> = existsSync(CACHE_PATH)
+const cache: Record<string, GeoHit> = existsSync(CACHE_PATH)
   ? JSON.parse(readFileSync(CACHE_PATH, 'utf8'))
   : {};
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-async function geocode(address: string): Promise<{ lat: number; lng: number } | null> {
-  if (cache[address]) return cache[address];
+async function geocode(address: string): Promise<GeoHit | null> {
+  if (cache[address]?.country) return cache[address];
   await sleep(1100); // Nominatim policy: max 1 request/second
-  const url = `https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(address)}`;
+  const url = `https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=1&limit=1&q=${encodeURIComponent(address)}`;
   const res = await fetch(url, { headers: { 'user-agent': 'hire-la-seed/1.0 (job map side project)' } });
   if (!res.ok) return null;
-  const results = (await res.json()) as Array<{ lat: string; lon: string }>;
+  const results = (await res.json()) as Array<{ lat: string; lon: string; address?: Record<string, string> }>;
   if (!results.length) return null;
-  const hit = { lat: parseFloat(results[0].lat), lng: parseFloat(results[0].lon) };
+  const a = results[0].address ?? {};
+  const hit: GeoHit = {
+    lat: parseFloat(results[0].lat),
+    lng: parseFloat(results[0].lon),
+    country: a.country,
+    countryCode: a.country_code,
+    region: a.state,
+  };
   cache[address] = hit;
   writeFileSync(CACHE_PATH, JSON.stringify(cache, null, 2));
   return hit;
+}
+
+/** Make sure the city exists in the selector (center = this office if the city is new). */
+async function ensureCity(slug: string, name: string, geo: GeoHit) {
+  const { data } = await db.from('cities').select('slug').eq('slug', slug).maybeSingle();
+  if (data) return;
+  await db.from('cities').insert({
+    slug,
+    name,
+    region: geo.region ?? null,
+    country: geo.country ?? 'Unknown',
+    country_code: geo.countryCode ?? null,
+    lng: geo.lng,
+    lat: geo.lat,
+    zoom: 11,
+    source: 'seed',
+  });
 }
 
 // ----------------------------------------------------------------------- Main
@@ -112,31 +139,22 @@ async function main() {
 
   const summary: Array<{ name: string; token: string; jobs: string; geocode: string; db: string }> = [];
 
-  for (const row of rows) {
+  // Validate every token first, 5 at a time.
+  console.log('Validating tokens…');
+  const checks = await pMap(rows, 5, async (row) => {
+    if (!['greenhouse', 'lever', 'ashby'].includes(row.ats_type)) return { valid: false, jobCount: 0, detail: `unknown ats_type "${row.ats_type}"` };
+    const c = await validateToken(row.ats_type, row.ats_token);
+    console.log(`  ${row.name.padEnd(26)} ${row.ats_type}/${row.ats_token}: ${c.valid ? `ok, ${c.jobCount} live jobs` : `INVALID (${c.detail})`}`);
+    return c;
+  });
+
+  for (const [i, row] of rows.entries()) {
     const line = { name: row.name, token: '', jobs: '-', geocode: '-', db: 'skipped' };
     summary.push(line);
-
-    if (!['greenhouse', 'lever', 'ashby'].includes(row.ats_type)) {
-      line.token = `unknown ats_type "${row.ats_type}"`;
-      continue;
-    }
-
-    process.stdout.write(`${row.name}: validating ${row.ats_type}/${row.ats_token} ... `);
-    const check = await validateToken(row.ats_type, row.ats_token);
+    const check = checks[i];
     line.token = check.valid ? 'valid' : `INVALID (${check.detail})`;
     line.jobs = check.valid ? String(check.jobCount) : '-';
-    console.log(check.valid ? `ok, ${check.jobCount} live jobs` : `FAILED (${check.detail})`);
     if (!check.valid) continue;
-
-    process.stdout.write(`${row.name}: geocoding "${row.address}" ... `);
-    const point = await geocode(row.address);
-    if (!point) {
-      line.geocode = 'FAILED';
-      console.log('FAILED — fix the address and re-run');
-      continue;
-    }
-    line.geocode = `${point.lat.toFixed(4)}, ${point.lng.toFixed(4)}`;
-    console.log(line.geocode);
 
     const companySlug = slugify(row.name);
     const { data: company, error: cErr } = await db
@@ -158,6 +176,31 @@ async function main() {
       continue;
     }
 
+    // No address? The company is in — the worker discovers its offices from job locations.
+    if (!row.address) {
+      line.geocode = '(worker discovers)';
+      line.db = 'company upserted';
+      continue;
+    }
+
+    // City-level address ("Long Beach, CA") that the dictionary knows → no geocoder call.
+    const dict = /\d/.test(row.address) ? null : matchCity(row.address) ?? matchCity(row.city);
+    let point: GeoHit | null = dict
+      ? { lat: dict.lat, lng: dict.lng, country: dict.country, countryCode: dict.cc, region: dict.region }
+      : null;
+    if (!point) {
+      process.stdout.write(`${row.name}: geocoding "${row.address}" ... `);
+      point = await geocode(row.address);
+      if (!point) {
+        line.geocode = 'FAILED';
+        console.log('FAILED — fix the address and re-run');
+        line.db = 'company upserted, no location';
+        continue;
+      }
+      console.log(`${point.lat.toFixed(4)}, ${point.lng.toFixed(4)}`);
+    }
+    line.geocode = dict ? `${dict.name} (dictionary)` : `${point.lat.toFixed(4)}, ${point.lng.toFixed(4)}`;
+
     const { data: existing } = await db
       .from('locations')
       .select('id')
@@ -170,14 +213,19 @@ async function main() {
       continue;
     }
 
+    const citySlug = dict?.slug ?? canonicalCitySlug(row.city || 'Unknown');
+    await ensureCity(citySlug, dict?.name ?? row.city, point);
+
     const { error: lErr } = await db.from('locations').insert({
       company_id: company.id,
       label: row.is_hq === 'true' ? 'HQ' : row.city,
       address: row.address,
       city: row.city,
-      city_slug: cityGroupSlug(row.city),
+      city_slug: citySlug,
       geom: `SRID=4326;POINT(${point.lng} ${point.lat})`,
       is_hq: row.is_hq === 'true',
+      // A street address (has a number) is exact; "Long Beach, CA" is a city-center placeholder.
+      precision: /\d/.test(row.address) ? 'address' : 'city',
     });
     line.db = lErr ? `location error: ${lErr.message}` : 'inserted';
   }
@@ -188,32 +236,6 @@ async function main() {
   }
   console.log('================================================');
   console.log('Invalid tokens? Fix or remove those rows in companies.csv and re-run — valid rows are untouched.');
-}
-
-/**
- * Metro grouping: every LA-area municipality (Santa Monica, Hawthorne,
- * Glendale, ...) maps to the "los-angeles" city_slug so one dropdown
- * selection loads the whole metro. Extend this map as cities are added.
- */
-const METRO: Record<string, string> = {
-  'hawthorne': 'los-angeles',
-  'long beach': 'los-angeles',
-  'santa monica': 'los-angeles',
-  'culver city': 'los-angeles',
-  'glendale': 'los-angeles',
-  'marina del rey': 'los-angeles',
-  'los angeles': 'los-angeles',
-  'west hollywood': 'los-angeles',
-  'costa mesa': 'los-angeles',
-  'el segundo': 'los-angeles',
-  'burbank': 'los-angeles',
-  'pasadena': 'los-angeles',
-  'irvine': 'los-angeles',
-  'venice': 'los-angeles',
-};
-
-function cityGroupSlug(city: string): string {
-  return METRO[city.trim().toLowerCase()] ?? slugify(city);
 }
 
 main().catch((err) => {

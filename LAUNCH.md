@@ -11,7 +11,8 @@ Everything below is on your side of the fence (accounts, secrets, DNS). Total co
 ## 2. Worker on autopilot (GitHub Actions)
 
 - [ ] Repo → Settings → Secrets and variables → Actions → add `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`
-- [ ] Actions tab → fetch-jobs → Run workflow → confirm a green run with a sane summary
+- [ ] Actions tab → **onboard-companies** → Run workflow (defaults: YC + all harvested boards, budget 3000) → wait for green; this fills the map
+- [ ] Confirm **fetch-jobs** (the twice-daily maintenance run) is enabled — it shares a lock with onboarding so they never overlap
 - [ ] Remember the quirk: GitHub pauses schedules after 60 days without repo activity — any commit resets it
 
 ## 3. Deploy (Vercel)
@@ -48,5 +49,7 @@ Adding a city: seed its companies + one entry in `lib/cities.ts` (+ a METRO mapp
 Watching health: the Actions run summary shows per-company fetch counts and HQ-fallback rates — a company with a suddenly-failing fetch or high fallback deserves a look.
 
 ## Known future work (post-launch backlog)
+
+Geographic expansion — Tier 2 (Poland, Czechia, Brazil, Mexico, Argentina, Colombia, Estonia, Romania, Ukraine): add the ISO codes to `data/targets.json` and cities to `data/cities-tier1.json`; needs Portuguese/Spanish/Polish keywords in `lib/categorize.ts` first. Tier 3 (Japan, South Korea, China, Taiwan): needs new ATS adapters (HERP, Wantedly…) and language rules — a project, not a toggle · Regional ATS adapters that gate coverage: Keka / Zoho Recruit / Darwinbox (India), Comeet (Israel), Workday (enterprise everywhere) · "Remote" pseudo-cities in the picker · Searchable city picker + default city from the visitor's country (Vercel geo header) · Per-city discovery scan (`--city`) and a weekly discovery workflow.
 
 City landing pages (`/jobs-in/[city]`) for organic entry traffic · `featured` flag on companies for paid highlighted pins · smarter location matching if fallback rates run high · a "Search this area" button if you ever want off-city browsing.

@@ -4,8 +4,8 @@ import { notFound } from 'next/navigation';
 import { supabaseServer } from '@/lib/supabase';
 import { cleanJobHtml, textExcerpt } from '@/lib/sanitize';
 import { timeAgo, workplaceLabel } from '@/lib/format';
-import { CITIES } from '@/lib/cities';
 import { homeUrl } from '@/lib/urls';
+import { fetchDescription } from '@/lib/ats-description';
 import AdSlot from '@/components/AdSlot';
 
 /** ISR: built on first request, re-rendered in the background every 6h. */
@@ -16,22 +16,29 @@ interface JobRecord {
   slug: string;
   title: string;
   department: string | null;
+  category: string | null;
   employment_type: string | null;
   workplace_type: 'onsite' | 'hybrid' | 'remote' | null;
   apply_url: string;
-  description_html: string | null;
+  source_job_id: string;
   posted_at: string | null;
   last_seen_at: string;
   is_active: boolean;
-  companies: { name: string; slug: string; website: string | null } | null;
+  companies: { name: string; slug: string; website: string | null; ats_type: 'greenhouse' | 'lever' | 'ashby'; ats_token: string } | null;
   locations: { city: string; address: string | null; city_slug: string } | null;
+}
+
+/** Description lives at the ATS; fetched at render, cached 6h by ISR. Inactive jobs skip it. */
+async function getDescription(job: JobRecord): Promise<string | null> {
+  if (!job.companies || !job.is_active) return null;
+  return fetchDescription(job.companies.ats_type, job.companies.ats_token, job.source_job_id);
 }
 
 async function getJob(slug: string): Promise<JobRecord | null> {
   const { data } = await supabaseServer()
     .from('jobs')
     .select(
-      'id, slug, title, department, employment_type, workplace_type, apply_url, description_html, posted_at, last_seen_at, is_active, companies ( name, slug, website ), locations ( city, address, city_slug )',
+      'id, slug, title, department, category, employment_type, workplace_type, apply_url, source_job_id, posted_at, last_seen_at, is_active, companies ( name, slug, website, ats_type, ats_token ), locations ( city, address, city_slug )',
     )
     .eq('slug', slug)
     .maybeSingle();
@@ -49,8 +56,9 @@ export async function generateMetadata({
 
   const city = job.locations?.city ?? 'Los Angeles';
   const title = `${job.title} at ${job.companies.name} (${city})`;
-  const description = job.description_html
-    ? textExcerpt(job.description_html)
+  const html = await getDescription(job);
+  const description = html
+    ? textExcerpt(html)
     : `${job.title} role at ${job.companies.name} in ${city}. See details and apply on hire.la.`;
 
   return {
@@ -68,10 +76,12 @@ export default async function JobPage({ params }: { params: Promise<{ slug: stri
   const company = job.companies;
   const city = job.locations?.city ?? 'Los Angeles';
   const citySlug = job.locations?.city_slug ?? 'los-angeles';
-  const country = CITIES.find((c) => c.slug === citySlug)?.country ?? 'United States';
+  const { data: cityRow } = await supabaseServer().from('cities').select('country').eq('slug', citySlug).maybeSingle();
+  const country = (cityRow?.country as string | undefined) ?? 'United States';
   const workplace = workplaceLabel(job.workplace_type);
   const posted = timeAgo(job.posted_at);
-  const description = job.description_html ? cleanJobHtml(job.description_html) : null;
+  const rawHtml = await getDescription(job);
+  const description = rawHtml ? cleanJobHtml(rawHtml) : null;
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -79,7 +89,7 @@ export default async function JobPage({ params }: { params: Promise<{ slug: stri
     title: job.title,
     datePosted: job.posted_at ?? undefined,
     ...(job.is_active ? {} : { validThrough: job.last_seen_at }),
-    description: job.description_html ? textExcerpt(job.description_html, 500) : job.title,
+    description: rawHtml ? textExcerpt(rawHtml, 500) : job.title,
     employmentType: job.employment_type ?? undefined,
     hiringOrganization: {
       '@type': 'Organization',
@@ -123,6 +133,7 @@ export default async function JobPage({ params }: { params: Promise<{ slug: stri
           <Link href={`/company/${company.slug}`}>{company.name}</Link> · {city}
         </p>
         <p className="doc-badges">
+          {job.category && <span className="badge badge-strong">{job.category}</span>}
           {job.department && <span className="badge">{job.department}</span>}
           {workplace && <span className={`badge badge-${job.workplace_type}`}>{workplace}</span>}
           {job.employment_type && <span className="badge">{job.employment_type}</span>}

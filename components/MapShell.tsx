@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useSearchParams } from 'next/navigation';
 import { cityBySlug } from '@/lib/cities';
+import { useCities } from '@/lib/useCities';
+import { webglAvailable } from '@/lib/webgl';
 import type { Pin } from '@/lib/types';
 import CompanyPanel from './CompanyPanel';
 
@@ -14,31 +16,52 @@ import CompanyPanel from './CompanyPanel';
  * CitySelector — one fetch per city selection, then all interaction
  * is local. `ssr: false` is required because MapLibre touches `window`.
  */
-const JobMap = dynamic(() => import('./JobMap'), {
-  ssr: false,
-  loading: () => (
-    <div className="map-container map-loading" role="status" aria-live="polite">
-      Loading map…
-    </div>
-  ),
-});
+const loading = () => (
+  <div className="map-container map-loading" role="status" aria-live="polite">
+    Loading map…
+  </div>
+);
+
+/** Primary: MapLibre (vector, WebGL). Fallback: Leaflet (raster, no WebGL). */
+const JobMap = dynamic(() => import('./JobMap'), { ssr: false, loading });
+const JobMapLeaflet = dynamic(() => import('./JobMapLeaflet'), { ssr: false, loading });
 
 export default function MapShell() {
   const params = useSearchParams();
-  const city = cityBySlug(params.get('city'));
-  const dept = params.get('dept');
+  const cities = useCities();
+  const city = cityBySlug(cities, params.get('city'));
+  const cat = params.get('cat');
   const [pins, setPins] = useState<Pin[]>([]);
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
   const [errorDetail, setErrorDetail] = useState<string | null>(null);
   const [selected, setSelected] = useState<Pin | null>(null);
   const [retryKey, setRetryKey] = useState(0);
+  const [engine, setEngine] = useState<'maplibre' | 'leaflet' | null>(null);
+
+  // Refresh pins when the tab regains focus so counts don't go stale while
+  // the worker updates data behind the scenes.
+  useEffect(() => {
+    const onVisible = () => {
+      if (document.visibilityState === 'visible') setRetryKey((k) => k + 1);
+    };
+    document.addEventListener('visibilitychange', onVisible);
+    return () => document.removeEventListener('visibilitychange', onVisible);
+  }, []);
+
+  // Only offices with matching open roles get a pin.
+  const visiblePins = pins.filter((p) => p.open_jobs > 0);
+
+  // Decide the map engine on the client once WebGL can be probed.
+  useEffect(() => {
+    setEngine(webglAvailable() ? 'maplibre' : 'leaflet');
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
     setStatus('loading');
     setSelected(null);
     const q = new URLSearchParams({ city: city.slug });
-    if (dept) q.set('dept', dept);
+    if (cat) q.set('cat', cat);
     fetch(`/api/pins?${q.toString()}`)
       .then(async (r) => {
         const json = (await r.json().catch(() => ({}))) as { pins?: Pin[]; error?: string };
@@ -60,17 +83,28 @@ export default function MapShell() {
     return () => {
       cancelled = true;
     };
-  }, [city.slug, dept, retryKey]);
+  }, [city.slug, cat, retryKey]);
 
   return (
     <>
-      <JobMap
-        city={city}
-        pins={pins}
-        selectedId={selected?.location_id ?? null}
-        onSelect={setSelected}
-      />
-      <CompanyPanel pin={selected} dept={dept} onClose={() => setSelected(null)} />
+      {engine === null && loading()}
+      {engine === 'maplibre' && (
+        <JobMap
+          city={city}
+          pins={visiblePins}
+          selectedId={selected?.location_id ?? null}
+          onSelect={setSelected}
+        />
+      )}
+      {engine === 'leaflet' && (
+        <JobMapLeaflet
+          city={city}
+          pins={visiblePins}
+          selectedId={selected?.location_id ?? null}
+          onSelect={setSelected}
+        />
+      )}
+      <CompanyPanel pin={selected} category={cat} onClose={() => setSelected(null)} />
       {status === 'loading' && (
         <div className="map-status" role="status">Loading companies…</div>
       )}
@@ -83,10 +117,10 @@ export default function MapShell() {
           {errorDetail && <div className="map-error-detail">{errorDetail}</div>}
         </div>
       )}
-      {status === 'ready' && pins.length === 0 && (
+      {status === 'ready' && visiblePins.length === 0 && (
         <div className="map-empty" role="status">
-          {dept
-            ? `No ${dept} roles in ${city.city} right now — try All.`
+          {cat
+            ? `No ${cat} roles in ${city.city} right now — try All roles.`
             : `No companies pinned in ${city.city} yet — we're expanding city by city.`}
         </div>
       )}

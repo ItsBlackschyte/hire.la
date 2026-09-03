@@ -12,7 +12,6 @@ interface LeverPosting {
   hostedUrl?: string;
   applyUrl?: string;
   createdAt?: number;
-  description?: string;
   workplaceType?: string;
   categories?: {
     team?: string;
@@ -47,7 +46,6 @@ export const lever: AtsAdapter = async (token) => {
       department: p.categories?.department ?? p.categories?.team ?? undefined,
       locationText,
       applyUrl: p.hostedUrl ?? p.applyUrl ?? '',
-      descriptionHtml: p.description || undefined,
       postedAt: p.createdAt ? new Date(p.createdAt).toISOString() : undefined,
       workplaceType: mapWorkplace(p.workplaceType, locationText),
       employmentType: p.categories?.commitment,

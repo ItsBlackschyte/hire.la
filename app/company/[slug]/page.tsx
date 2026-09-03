@@ -13,6 +13,7 @@ interface CompanyRecord {
   slug: string;
   name: string;
   website: string | null;
+  logo_url: string | null;
   description: string | null;
   locations: Array<{ id: string; city: string; city_slug: string; label: string | null }>;
 }
@@ -30,7 +31,7 @@ async function getCompany(slug: string) {
   const db = supabaseServer();
   const { data: company } = await db
     .from('companies')
-    .select('id, slug, name, website, description, locations ( id, city, city_slug, label )')
+    .select('id, slug, name, website, logo_url, description, locations ( id, city, city_slug, label )')
     .eq('slug', slug)
     .maybeSingle();
   if (!company) return null;
@@ -88,6 +89,10 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
       </nav>
 
       <header className="doc-header">
+        {company.logo_url && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img className="doc-logo" src={company.logo_url} alt="" width={56} height={56} />
+        )}
         <h1>{company.name}</h1>
         <p className="doc-sub">
           {company.locations.map((l) => l.city).join(' · ')}

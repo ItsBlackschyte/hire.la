@@ -12,16 +12,6 @@ export async function fetchJson(url: string): Promise<unknown> {
   }
 }
 
-/** Greenhouse returns job content HTML-escaped; decode the common entities. */
-export function decodeEntities(s: string): string {
-  return s
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&amp;/g, '&');
-}
-
 /** Best-effort workplace inference from the location string. */
 export function inferWorkplace(locationText: string): 'remote' | 'hybrid' | undefined {
   const t = locationText.toLowerCase();

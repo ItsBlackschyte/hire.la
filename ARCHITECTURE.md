@@ -21,7 +21,7 @@ Map movement is free; data loading is deliberate. Users pan and pinch-zoom freel
 
 The app ships a static city registry in `lib/cities.ts` — entries like `{ country: "United States", city: "Los Angeles", slug: "los-angeles", center: [-118.24, 34.05], zoom: 10 }`. A cascading country → city selector drives `map.flyTo(center, zoom)`, and selecting a city triggers exactly one request: `GET /api/pins?city=los-angeles`. Because that response is identical for every user until the next worker run, it is cached at Vercel's edge — a thousand users browsing a city can cost a single database query. The selection syncs to the URL (`/?city=pune`) for shareable links, with Los Angeles as the default. Adding a city to the product is a data-only change: new rows in `companies.csv` plus one entry in `cities.ts`.
 
-Zooming never refetches: clustering runs client-side (`supercluster`) over pins already in hand, splitting and merging as the zoom level changes. A city listed in the registry but not yet seeded shows an explicit "no companies here yet" empty state.
+Browsers without WebGL (rare on real devices, common on locked-down laptops) automatically get `JobMapLeaflet`, a raster-tile Leaflet map with identical props and behavior — the engine is chosen at runtime by probing for a WebGL context. Zooming never refetches: clustering runs client-side (`supercluster`) over pins already in hand, splitting and merging as the zoom level changes. A city listed in the registry but not yet seeded shows an explicit "no companies here yet" empty state.
 
 ## 3. Repository layout
 
@@ -72,6 +72,18 @@ Three tables. Companies and locations are slow data, seeded once and edited rare
 Design notes. The `unique (company_id, source_job_id)` constraint makes the worker idempotent: every run is a pure upsert, safe to re-run at any time. The `slug` columns exist because URLs are a product surface — `/jobs/sunset-labs-frontend-engineer-santa-monica` is human-readable and keyword-rich; slugs are generated once at insert so URLs never change when titles get edited. `locations.city_slug` is the pins query key, indexed, matching `cities.ts` slugs — the hot path is a plain indexed lookup, with PostGIS retained for coordinate storage and future spatial features. `workplace_type` implements the remote-jobs decision: remote jobs pin to HQ and carry a badge. `description_html` is stored because per-job pages need real content for SEO and AdSense; Greenhouse and Lever both return it.
 
 Row Level Security is enabled on all three tables: public `select` (jobs only where `is_active`), no public writes. The worker and seed script use the service-role key, which bypasses RLS and never ships to the browser.
+
+### Role categories
+
+Raw ATS department names are company-specific ("Akoustis - Starlink", "Barrel Production") and useless as a cross-company filter. `lib/categorize.ts` defines a fixed taxonomy (~13 role categories) and a rule-based classifier: title first, department as fallback, else "Other". The worker stamps `jobs.category` on every run, so rule improvements re-categorize the whole database at the next sync. Filters, pin counts (`pins_for_city(p_city_slug, p_category)`), the panel, and job-page badges all use the category; the raw department is kept as secondary metadata.
+
+### Locations and cities are discovered, not curated
+
+Job feeds carry city-level location strings, and companies hire in many cities. The worker resolves every distinct string once (Nominatim, cached in `location_aliases`) to a canonical city — creating the `cities` row if new, applying metro grouping from `lib/metro.ts` — then to a `locations` row for that company in that city, reusing any existing row before creating one. New rows are placed at the company's OpenStreetMap office when one is found (`precision = poi`) or at a deterministically jittered city center (`precision = city`, drawn dashed and labeled approximate). Rows seeded from `companies.csv` carry `precision = address` and always take precedence because existing rows are reused first. The selector (`/api/cities`) lists seeded cities plus any discovered city with active jobs, so coverage grows with the data and a company hiring in Pune, Mumbai, Bengaluru, and Hyderabad shows up in all four with no configuration.
+
+### Lean jobs, offline geography, explicit scope
+
+Job descriptions are never stored: `/jobs/[slug]` fetches them from the ATS at render time (`lib/ats-description.ts`, cached by ISR), so a job row is ~1 KB and hundreds of thousands fit in the free tier. Location strings resolve first against `data/cities-tier1.json` — ~160 Tier-1 metros with aliases and coordinates — with no network call; only unknown strings reach Nominatim, once, under a per-run budget. `data/targets.json` defines the allowed countries; jobs elsewhere are skipped and the string remembered as excluded. The worker processes boards 5 at a time.
 
 ## 5. Ingestion worker
 

@@ -1,11 +1,72 @@
 name,website,ats_type,ats_token,address,city,is_hq,verified
-SpaceX,https://www.spacex.com,greenhouse,spacex,"1 Rocket Rd, Hawthorne, CA",Hawthorne,true,no
-Relativity Space,https://www.relativityspace.com,greenhouse,relativity,"Long Beach, CA",Long Beach,true,no
-GoodRx,https://www.goodrx.com,greenhouse,goodrx,"Santa Monica, CA",Santa Monica,true,no
-Scopely,https://www.scopely.com,greenhouse,scopely,"Culver City, CA",Culver City,true,no
-ServiceTitan,https://www.servicetitan.com,greenhouse,servicetitan,"Glendale, CA",Glendale,true,no
-Whatnot,https://www.whatnot.com,greenhouse,whatnot,"Marina del Rey, CA",Los Angeles,true,no
-Dave,https://www.dave.com,greenhouse,dave,"Los Angeles, CA",Los Angeles,true,no
-Anduril,https://www.anduril.com,lever,anduril,"Costa Mesa, CA",Costa Mesa,true,no
-Boulevard,https://www.joinblvd.com,greenhouse,boulevard,"West Hollywood, CA",West Hollywood,true,no
-FabFitFun,https://www.fabfitfun.com,lever,fabfitfun,"West Hollywood, CA",West Hollywood,true,no
+SpaceX,https://www.spacex.com,greenhouse,spacex,"1 Rocket Rd, Hawthorne, CA 90250",Hawthorne,true,yes
+Relativity Space,https://www.relativityspace.com,greenhouse,relativity,"Long Beach, CA",Long Beach,true,yes
+Scopely,https://www.scopely.com,greenhouse,scopely,"Culver City, CA",Culver City,true,yes
+Rocket Lab,https://www.rocketlabusa.com,greenhouse,rocketlab,"Long Beach, CA",Long Beach,true,no
+Anduril,https://www.anduril.com,greenhouse,andurilindustries,"Costa Mesa, CA",Costa Mesa,true,no
+True Anomaly,https://www.trueanomaly.space,greenhouse,trueanomalyinc,,,false,no
+Field AI,https://www.fieldai.com,lever,field-ai,"Mission Viejo, CA",Mission Viejo,true,no
+Varda Space,https://www.varda.com,greenhouse,vardaspace,"El Segundo, CA",El Segundo,true,no
+Hadrian,https://www.hadrian.co,ashby,hadrian-automation,"Torrance, CA",Torrance,true,no
+Mach Industries,https://www.machindustries.com,ashby,mach,"Huntington Beach, CA",Huntington Beach,true,no
+K2 Space,https://www.k2space.com,greenhouse,k2spacecorporation,"Torrance, CA",Torrance,true,no
+Apex,https://www.apexspace.com,ashby,apex-technology-inc,"Los Angeles, CA",Los Angeles,true,no
+Turion Space,https://www.turionspace.com,ashby,turion-space,"Irvine, CA",Irvine,true,no
+Whatnot,https://www.whatnot.com,ashby,whatnot,"Los Angeles, CA",Los Angeles,true,no
+Tinder,https://www.tinder.com,lever,matchgroup,"West Hollywood, CA",West Hollywood,true,no
+Faraday Future,https://www.ff.com,greenhouse,faradayfuture,"Gardena, CA",Gardena,true,no
+Machina Labs,https://www.machinalabs.ai,lever,machinalabs,"Los Angeles, CA",Los Angeles,true,no
+Shield AI,https://www.shield.ai,lever,shieldai,"San Diego, CA",San Diego,true,no
+Astranis,https://www.astranis.com,greenhouse,astranis,,,false,no
+Palantir,https://www.palantir.com,lever,palantir,,,false,no
+Zoox,https://www.zoox.com,lever,zoox,,,false,no
+Verkada,https://www.verkada.com,greenhouse,verkada,,,false,no
+Snowflake,https://www.snowflake.com,ashby,snowflake,,,false,no
+Cloudflare,https://www.cloudflare.com,greenhouse,cloudflare,,,false,no
+Spotify,https://www.spotify.com,lever,spotify,,,false,no
+1Password,https://1password.com,ashby,1password,,,false,no
+Skydio,https://www.skydio.com,ashby,skydio,,,false,no
+Axon,https://www.axon.com,greenhouse,axon,,,false,no
+Twitch,https://www.twitch.tv,greenhouse,twitch,,,false,no
+Planet,https://www.planet.com,greenhouse,planetlabs,,,false,no
+xAI,https://x.ai,greenhouse,xai,,,false,no
+Tenstorrent,https://tenstorrent.com,greenhouse,tenstorrent,,,false,no
+Together AI,https://www.together.ai,greenhouse,togetherai,,,false,no
+Applied Intuition,https://www.appliedintuition.com,greenhouse,appliedintuition,,,false,no
+Notion,https://www.notion.so,ashby,notion,,,false,no
+Cohere,https://cohere.com,ashby,cohere,,,false,no
+Lucid Motors,https://www.lucidmotors.com,greenhouse,lucidmotors,,,false,no
+Anthropic,https://www.anthropic.com,greenhouse,anthropic,,,false,no
+Cerebras,https://www.cerebras.ai,ashby,cerebras,,,false,no
+Sierra,https://sierra.ai,ashby,sierra,,,false,no
+Hermeus,https://www.hermeus.com,lever,hermeus,,,false,no
+Affirm,https://www.affirm.com,greenhouse,affirm,,,false,no
+Robinhood,https://robinhood.com,greenhouse,robinhood,,,false,no
+General Matter,https://www.generalmatter.com,greenhouse,generalmatter,,,false,no
+Redwood Materials,https://www.redwoodmaterials.com,greenhouse,redwoodmaterials,,,false,no
+Perplexity,https://www.perplexity.ai,ashby,perplexity,,,false,no
+Archer,https://www.archer.com,greenhouse,archer56,,,false,no
+OpenAI,https://openai.com,ashby,openai,,,false,no
+Harvey,https://www.harvey.ai,ashby,harvey,,,false,no
+DoorDash,https://www.doordash.com,greenhouse,doordashusa,,,false,no
+Airtable,https://www.airtable.com,greenhouse,airtable,,,false,no
+Glean,https://www.glean.com,greenhouse,gleanwork,,,false,no
+Mistral AI,https://mistral.ai,ashby,mistral.ai,,,false,no
+Scale AI,https://scale.com,greenhouse,scaleai,,,false,no
+Kairos Power,https://kairospower.com,greenhouse,kairospower,,,false,no
+Rigetti,https://www.rigetti.com,lever,rigetti,,,false,no
+Baseten,https://www.baseten.co,ashby,baseten,,,false,no
+Figma,https://www.figma.com,greenhouse,figma,,,false,no
+Plaid,https://plaid.com,ashby,plaid,,,false,no
+Vercel,https://vercel.com,greenhouse,vercel,,,false,no
+IonQ,https://ionq.com,greenhouse,ionq,,,false,no
+PlanetScale,https://planetscale.com,greenhouse,planetscale,,,false,no
+Lightmatter,https://lightmatter.co,greenhouse,lightmatter,,,false,no
+Chime,https://www.chime.com,greenhouse,chime,,,false,no
+Amplitude,https://amplitude.com,greenhouse,amplitude,,,false,no
+Gusto,https://gusto.com,greenhouse,gusto,,,false,no
+Saronic,https://www.saronic.com,ashby,saronic,,,false,no
+Albedo,https://albedo.com,greenhouse,albedo,,,false,no
+Sila,https://silanano.com,greenhouse,silananotechnologies,,,false,no
+Lovable,https://lovable.dev,ashby,lovable,,,false,no
+Armada,https://www.armada.ai,greenhouse,armada,,,false,no

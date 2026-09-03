@@ -1,6 +1,5 @@
 import type { MetadataRoute } from 'next';
 import { supabaseServer } from '@/lib/supabase';
-import { CITIES } from '@/lib/cities';
 
 /** Regenerated every 6h, in step with the worker + ISR pages. */
 export const revalidate = 21600;
@@ -10,9 +9,10 @@ const BASE = 'https://hire.la';
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const db = supabaseServer();
 
+  const { data: cityRows } = await db.rpc('cities_with_counts');
   const entries: MetadataRoute.Sitemap = [
     { url: BASE, changeFrequency: 'daily', priority: 1 },
-    ...CITIES.map((c) => ({
+    ...((cityRows ?? []) as Array<{ slug: string }>).map((c) => ({
       url: `${BASE}/?city=${c.slug}`,
       changeFrequency: 'daily' as const,
       priority: 0.9,

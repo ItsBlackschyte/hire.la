@@ -1,0 +1,83 @@
+{
+  "1 Rocket Rd, Hawthorne, CA": {
+    "lat": 33.9203632,
+    "lng": -118.3280267
+  },
+  "Long Beach, CA": {
+    "lat": 33.7690164,
+    "lng": -118.191604,
+    "country": "United States",
+    "countryCode": "us",
+    "region": "California"
+  },
+  "Culver City, CA": {
+    "lat": 34.0211224,
+    "lng": -118.396466,
+    "country": "United States",
+    "countryCode": "us",
+    "region": "California"
+  },
+  "1 Rocket Rd, Hawthorne, CA 90250": {
+    "lat": 33.9203632,
+    "lng": -118.3280267,
+    "country": "United States",
+    "countryCode": "us",
+    "region": "California"
+  },
+  "El Segundo, CA": {
+    "lat": 33.917028,
+    "lng": -118.4156337,
+    "country": "United States",
+    "countryCode": "us",
+    "region": "California"
+  },
+  "Torrance, CA": {
+    "lat": 33.8371392,
+    "lng": -118.3413606,
+    "country": "United States",
+    "countryCode": "us",
+    "region": "California"
+  },
+  "Huntington Beach, CA": {
+    "lat": 33.6783336,
+    "lng": -118.000016,
+    "country": "United States",
+    "countryCode": "us",
+    "region": "California"
+  },
+  "Los Angeles, CA": {
+    "lat": 34.0536909,
+    "lng": -118.242766,
+    "country": "United States",
+    "countryCode": "us",
+    "region": "California"
+  },
+  "Irvine, CA": {
+    "lat": 33.6856969,
+    "lng": -117.825981,
+    "country": "United States",
+    "countryCode": "us",
+    "region": "California"
+  },
+  "West Hollywood, CA": {
+    "lat": 34.0923014,
+    "lng": -118.3692894,
+    "country": "United States",
+    "countryCode": "us",
+    "region": "California"
+  },
+  "Gardena, CA": {
+    "lat": 33.8815601,
+    "lng": -118.2935879,
+    "country": "United States",
+    "countryCode": "us",
+    "region": "California"
+  },
+  "Mission Viejo, CA": {
+    "lat": 33.5965685,
+    "lng": -117.659405,
+    "country": "United States",
+    "countryCode": "us",
+    "region": "California"
+  }
+}

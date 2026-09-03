@@ -86,7 +86,6 @@ async function main() {
         employment_type: 'Full-time',
         workplace_type: t.workplace,
         apply_url: loc.companies.website ?? 'https://example.com/apply',
-        description_html: `<p>This is a fixture job for development. ${loc.companies.name} is looking for a ${t.title} to join the ${t.department} team in ${loc.city}. Replaced by live ATS data in step 11.</p>`,
         posted_at: postedAt,
         is_active: true,
       },

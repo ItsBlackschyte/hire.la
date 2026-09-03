@@ -19,6 +19,7 @@ export interface OfficeLocation {
   city: string;
   city_slug: string;
   is_hq: boolean;
+  precision: 'address' | 'poi' | 'city';
 }
 
 export interface Job {
@@ -29,10 +30,10 @@ export interface Job {
   source_job_id: string;
   title: string;
   department: string | null;
+  category: string | null;
   employment_type: string | null;
   workplace_type: 'onsite' | 'hybrid' | 'remote' | null;
   apply_url: string;
-  description_html: string | null;
   posted_at: string | null;
   is_active: boolean;
 }
@@ -42,6 +43,8 @@ export interface Pin {
   location_id: string;
   company_slug: string;
   company_name: string;
+  logo_url: string | null;
+  precision: 'address' | 'poi' | 'city';
   lng: number;
   lat: number;
   open_jobs: number;

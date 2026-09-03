@@ -37,6 +37,7 @@ hire-la/
 
 ```
 npm install          # once
+npm run discover -- --yc --hiring   # find companies + their boards (YC / harvested / any list) → companies.csv
 npm run seed         # validate tokens, geocode, insert companies + locations (idempotent)
 npm run fixtures     # insert fake jobs for frontend dev (idempotent; worker removes them)
 npm run ats          # smoke-test ATS boards from companies.csv (no DB writes)
@@ -66,7 +67,7 @@ These are candidate LA-area companies believed to use Greenhouse, Lever, or Ashb
 
 JSON with jobs = valid token (flip `verified` to `yes`). An error page = wrong token or different ATS (fix the token or delete the row). Add your own rows freely — the columns are `name, website, ats_type, ats_token, address, city, is_hq, verified`, and one row = one office (a company with two offices gets two rows, `is_hq` true on exactly one).
 
-Addresses only need to be geocodable — street-level where known, "City, CA" otherwise (the pin lands at the city center; refine the address later if you want pin-perfect placement).
+Addresses are optional. Leave `address`/`city` empty and the worker discovers the company's offices from its job listings (city-level, marked approximate). Give a street address (with a number) for a pin that's exact; "Long Beach, CA" places a city-center placeholder marked approximate. The current list was harvested from real job postings, not guessed — but boards get renamed, so `npm run seed` still validates every token and reports failures.
 
 ## Environment variables
 

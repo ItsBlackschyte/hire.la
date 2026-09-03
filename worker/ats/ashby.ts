@@ -18,7 +18,6 @@ interface AshbyJob {
   jobUrl?: string;
   applyUrl?: string;
   employmentType?: string;
-  descriptionHtml?: string;
 }
 
 export const ashby: AtsAdapter = async (token) => {
@@ -40,7 +39,6 @@ export const ashby: AtsAdapter = async (token) => {
         department: j.department ?? j.team ?? undefined,
         locationText,
         applyUrl: j.jobUrl ?? j.applyUrl ?? '',
-        descriptionHtml: j.descriptionHtml || undefined,
         postedAt: j.publishedAt,
         workplaceType: j.isRemote ? 'remote' : inferWorkplace(locationText),
         employmentType: j.employmentType,

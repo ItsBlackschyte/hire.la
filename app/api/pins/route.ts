@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseServer } from '@/lib/supabase';
-import { cityBySlug } from '@/lib/cities';
 import type { Pin } from '@/lib/types';
 
 /**
- * GET /api/pins?city=los-angeles&dept=Engineering
+ * GET /api/pins?city=los-angeles&cat=Software%20Engineering
  *
  * Returns every office in the city with its company and open-job count.
  * The response is identical for all users until the next worker run, so
@@ -12,13 +11,13 @@ import type { Pin } from '@/lib/types';
  */
 export async function GET(req: NextRequest) {
   const params = req.nextUrl.searchParams;
-  const city = cityBySlug(params.get('city'));
-  const dept = params.get('dept');
+  const city = { slug: (params.get('city') ?? 'los-angeles').toLowerCase().replace(/[^a-z0-9-]/g, '') };
+  const cat = params.get('cat');
 
   const db = supabaseServer();
   const { data, error } = await db.rpc('pins_for_city', {
     p_city_slug: city.slug,
-    p_department: dept || null,
+    p_category: cat || null,
   });
 
   if (error) {

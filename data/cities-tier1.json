@@ -1,0 +1,2561 @@
+[
+{
+"slug": "los-angeles",
+"name": "Los Angeles",
+"region": "California",
+"country": "United States",
+"cc": "us",
+"lat": 34.05,
+"lng": -118.24,
+"zoom": 9.5,
+"aliases": [
+"los angeles",
+"los angeles, ca",
+"santa monica",
+"culver city",
+"hawthorne",
+"el segundo",
+"long beach",
+"irvine",
+"costa mesa",
+"pasadena",
+"burbank",
+"glendale, ca",
+"torrance",
+"venice, ca",
+"marina del rey",
+"west hollywood",
+"playa vista",
+"inglewood",
+"huntington beach",
+"newport beach",
+"mission viejo",
+"gardena",
+"redondo beach",
+"manhattan beach",
+"carson, ca",
+"anaheim",
+"santa ana",
+"orange county",
+"van nuys",
+"woodland hills",
+"chatsworth",
+"calabasas",
+"malibu",
+"thousand oaks",
+"sherman oaks",
+"beverly hills"
+]
+},
+{
+"slug": "san-francisco",
+"name": "San Francisco",
+"region": "California",
+"country": "United States",
+"cc": "us",
+"lat": 37.77,
+"lng": -122.42,
+"zoom": 9.5,
+"aliases": [
+"san francisco",
+"sf, ca",
+"bay area",
+"south san francisco",
+"oakland",
+"berkeley",
+"palo alto",
+"menlo park",
+"redwood city",
+"san mateo",
+"mountain view",
+"sunnyvale",
+"santa clara",
+"san jose",
+"cupertino",
+"fremont",
+"foster city",
+"san bruno",
+"burlingame",
+"emeryville",
+"alameda",
+"hayward",
+"milpitas",
+"san carlos",
+"belmont, ca",
+"los altos",
+"los gatos",
+"campbell, ca",
+"dublin, ca",
+"pleasanton",
+"walnut creek",
+"san rafael",
+"sausalito",
+"brisbane, ca",
+"san leandro",
+"richmond, ca",
+"santa cruz"
+]
+},
+{
+"slug": "new-york",
+"name": "New York",
+"region": "New York",
+"country": "United States",
+"cc": "us",
+"lat": 40.71,
+"lng": -74.01,
+"zoom": 10.5,
+"aliases": [
+"new york",
+"new york, ny",
+"nyc",
+"new york city",
+"brooklyn",
+"manhattan",
+"queens, ny",
+"bronx",
+"jersey city",
+"hoboken",
+"long island city",
+"stamford, ct",
+"white plains",
+"newark, nj"
+]
+},
+{
+"slug": "seattle",
+"name": "Seattle",
+"region": "Washington",
+"country": "United States",
+"cc": "us",
+"lat": 47.61,
+"lng": -122.33,
+"zoom": 10,
+"aliases": [
+"seattle",
+"bellevue",
+"redmond",
+"kirkland",
+"renton",
+"bothell",
+"tacoma"
+]
+},
+{
+"slug": "austin",
+"name": "Austin",
+"region": "Texas",
+"country": "United States",
+"cc": "us",
+"lat": 30.27,
+"lng": -97.74,
+"zoom": 10.5,
+"aliases": [
+"austin",
+"austin, tx",
+"round rock",
+"cedar park"
+]
+},
+{
+"slug": "boston",
+"name": "Boston",
+"region": "Massachusetts",
+"country": "United States",
+"cc": "us",
+"lat": 42.36,
+"lng": -71.06,
+"zoom": 10.5,
+"aliases": [
+"boston",
+"cambridge, ma",
+"cambridge, massachusetts",
+"somerville",
+"waltham",
+"burlington, ma",
+"lexington, ma",
+"woburn",
+"bedford, ma",
+"newton, ma",
+"watertown, ma",
+"quincy, ma"
+]
+},
+{
+"slug": "chicago",
+"name": "Chicago",
+"region": "Illinois",
+"country": "United States",
+"cc": "us",
+"lat": 41.88,
+"lng": -87.63,
+"zoom": 10,
+"aliases": [
+"chicago",
+"evanston",
+"naperville",
+"schaumburg"
+]
+},
+{
+"slug": "denver",
+"name": "Denver",
+"region": "Colorado",
+"country": "United States",
+"cc": "us",
+"lat": 39.74,
+"lng": -104.99,
+"zoom": 10,
+"aliases": [
+"denver",
+"boulder",
+"broomfield",
+"littleton, co",
+"golden, co",
+"aurora, co",
+"englewood, co",
+"louisville, co",
+"westminster, co",
+"centennial, co"
+]
+},
+{
+"slug": "san-diego",
+"name": "San Diego",
+"region": "California",
+"country": "United States",
+"cc": "us",
+"lat": 32.72,
+"lng": -117.16,
+"zoom": 10.5,
+"aliases": [
+"san diego",
+"la jolla",
+"carlsbad",
+"sorrento valley",
+"poway",
+"oceanside, ca"
+]
+},
+{
+"slug": "washington-dc",
+"name": "Washington, D.C.",
+"region": "District of Columbia",
+"country": "United States",
+"cc": "us",
+"lat": 38.9,
+"lng": -77.04,
+"zoom": 10.5,
+"aliases": [
+"washington, d.c.",
+"washington, dc",
+"washington dc",
+"arlington, va",
+"mclean",
+"reston",
+"bethesda",
+"tysons",
+"herndon",
+"alexandria, va",
+"chantilly",
+"fairfax, va",
+"rockville",
+"silver spring",
+"columbia, md",
+"fort meade"
+]
+},
+{
+"slug": "phoenix",
+"name": "Phoenix",
+"region": "Arizona",
+"country": "United States",
+"cc": "us",
+"lat": 33.45,
+"lng": -112.07,
+"zoom": 10,
+"aliases": [
+"phoenix",
+"scottsdale",
+"tempe",
+"chandler, az",
+"mesa, az",
+"gilbert, az",
+"glendale, az"
+]
+},
+{
+"slug": "dallas",
+"name": "Dallas",
+"region": "Texas",
+"country": "United States",
+"cc": "us",
+"lat": 32.78,
+"lng": -96.8,
+"zoom": 10,
+"aliases": [
+"dallas",
+"plano",
+"irving, tx",
+"fort worth",
+"frisco",
+"richardson, tx",
+"addison, tx",
+"dallas-fort worth",
+"dfw"
+]
+},
+{
+"slug": "houston",
+"name": "Houston",
+"region": "Texas",
+"country": "United States",
+"cc": "us",
+"lat": 29.76,
+"lng": -95.37,
+"zoom": 10,
+"aliases": [
+"houston",
+"the woodlands",
+"sugar land",
+"webster, tx"
+]
+},
+{
+"slug": "atlanta",
+"name": "Atlanta",
+"region": "Georgia",
+"country": "United States",
+"cc": "us",
+"lat": 33.75,
+"lng": -84.39,
+"zoom": 10,
+"aliases": [
+"atlanta",
+"alpharetta",
+"marietta, ga",
+"sandy springs"
+]
+},
+{
+"slug": "miami",
+"name": "Miami",
+"region": "Florida",
+"country": "United States",
+"cc": "us",
+"lat": 25.76,
+"lng": -80.19,
+"zoom": 10,
+"aliases": [
+"miami",
+"fort lauderdale",
+"boca raton",
+"coral gables",
+"doral",
+"miami beach",
+"west palm beach"
+]
+},
+{
+"slug": "philadelphia",
+"name": "Philadelphia",
+"region": "Pennsylvania",
+"country": "United States",
+"cc": "us",
+"lat": 39.95,
+"lng": -75.17,
+"zoom": 10.5,
+"aliases": [
+"philadelphia",
+"king of prussia",
+"conshohocken",
+"wilmington, de"
+]
+},
+{
+"slug": "salt-lake-city",
+"name": "Salt Lake City",
+"region": "Utah",
+"country": "United States",
+"cc": "us",
+"lat": 40.76,
+"lng": -111.89,
+"zoom": 10,
+"aliases": [
+"salt lake city",
+"lehi",
+"provo",
+"draper, ut",
+"south jordan",
+"orem",
+"sandy, ut",
+"american fork",
+"pleasant grove"
+]
+},
+{
+"slug": "portland",
+"name": "Portland",
+"region": "Oregon",
+"country": "United States",
+"cc": "us",
+"lat": 45.52,
+"lng": -122.68,
+"zoom": 10.5,
+"aliases": [
+"portland, or",
+"portland, oregon",
+"beaverton",
+"hillsboro, or",
+"lake oswego",
+"vancouver, wa",
+"vancouver, washington"
+]
+},
+{
+"slug": "minneapolis",
+"name": "Minneapolis",
+"region": "Minnesota",
+"country": "United States",
+"cc": "us",
+"lat": 44.98,
+"lng": -93.27,
+"zoom": 10.5,
+"aliases": [
+"minneapolis",
+"st. paul",
+"saint paul",
+"eden prairie",
+"bloomington, mn",
+"twin cities"
+]
+},
+{
+"slug": "detroit",
+"name": "Detroit",
+"region": "Michigan",
+"country": "United States",
+"cc": "us",
+"lat": 42.33,
+"lng": -83.05,
+"zoom": 10,
+"aliases": [
+"detroit",
+"ann arbor",
+"troy, mi",
+"dearborn",
+"auburn hills",
+"southfield"
+]
+},
+{
+"slug": "raleigh",
+"name": "Raleigh",
+"region": "North Carolina",
+"country": "United States",
+"cc": "us",
+"lat": 35.78,
+"lng": -78.64,
+"zoom": 10.5,
+"aliases": [
+"raleigh",
+"durham, nc",
+"research triangle",
+"chapel hill",
+"cary, nc",
+"morrisville, nc"
+]
+},
+{
+"slug": "nashville",
+"name": "Nashville",
+"region": "Tennessee",
+"country": "United States",
+"cc": "us",
+"lat": 36.16,
+"lng": -86.78,
+"zoom": 10.5,
+"aliases": [
+"nashville",
+"franklin, tn"
+]
+},
+{
+"slug": "pittsburgh",
+"name": "Pittsburgh",
+"region": "Pennsylvania",
+"country": "United States",
+"cc": "us",
+"lat": 40.44,
+"lng": -80.0,
+"zoom": 11,
+"aliases": [
+"pittsburgh"
+]
+},
+{
+"slug": "columbus",
+"name": "Columbus",
+"region": "Ohio",
+"country": "United States",
+"cc": "us",
+"lat": 39.96,
+"lng": -83.0,
+"zoom": 10.5,
+"aliases": [
+"columbus",
+"columbus, oh",
+"columbus, ohio",
+"dublin, oh",
+"dublin, ohio"
+]
+},
+{
+"slug": "charlotte",
+"name": "Charlotte",
+"region": "North Carolina",
+"country": "United States",
+"cc": "us",
+"lat": 35.23,
+"lng": -80.84,
+"zoom": 10.5,
+"aliases": [
+"charlotte",
+"charlotte, nc"
+]
+},
+{
+"slug": "las-vegas",
+"name": "Las Vegas",
+"region": "Nevada",
+"country": "United States",
+"cc": "us",
+"lat": 36.17,
+"lng": -115.14,
+"zoom": 10.5,
+"aliases": [
+"las vegas",
+"henderson, nv"
+]
+},
+{
+"slug": "sacramento",
+"name": "Sacramento",
+"region": "California",
+"country": "United States",
+"cc": "us",
+"lat": 38.58,
+"lng": -121.49,
+"zoom": 10.5,
+"aliases": [
+"sacramento",
+"folsom, ca",
+"roseville, ca"
+]
+},
+{
+"slug": "orlando",
+"name": "Orlando",
+"region": "Florida",
+"country": "United States",
+"cc": "us",
+"lat": 28.54,
+"lng": -81.38,
+"zoom": 10.5,
+"aliases": [
+"orlando"
+]
+},
+{
+"slug": "tampa",
+"name": "Tampa",
+"region": "Florida",
+"country": "United States",
+"cc": "us",
+"lat": 27.95,
+"lng": -82.46,
+"zoom": 10.5,
+"aliases": [
+"tampa",
+"st. petersburg, fl",
+"clearwater, fl"
+]
+},
+{
+"slug": "kansas-city",
+"name": "Kansas City",
+"region": "Missouri",
+"country": "United States",
+"cc": "us",
+"lat": 39.1,
+"lng": -94.58,
+"zoom": 10.5,
+"aliases": [
+"kansas city",
+"overland park",
+"kansas city, mo",
+"kansas city, ks"
+]
+},
+{
+"slug": "st-louis",
+"name": "St. Louis",
+"region": "Missouri",
+"country": "United States",
+"cc": "us",
+"lat": 38.63,
+"lng": -90.2,
+"zoom": 10.5,
+"aliases": [
+"st. louis",
+"st louis",
+"saint louis"
+]
+},
+{
+"slug": "cincinnati",
+"name": "Cincinnati",
+"region": "Ohio",
+"country": "United States",
+"cc": "us",
+"lat": 39.1,
+"lng": -84.51,
+"zoom": 10.5,
+"aliases": [
+"cincinnati"
+]
+},
+{
+"slug": "indianapolis",
+"name": "Indianapolis",
+"region": "Indiana",
+"country": "United States",
+"cc": "us",
+"lat": 39.77,
+"lng": -86.16,
+"zoom": 10.5,
+"aliases": [
+"indianapolis",
+"carmel, in"
+]
+},
+{
+"slug": "madison",
+"name": "Madison",
+"region": "Wisconsin",
+"country": "United States",
+"cc": "us",
+"lat": 43.07,
+"lng": -89.4,
+"zoom": 11,
+"aliases": [
+"madison",
+"madison, wi",
+"madison, wisconsin"
+]
+},
+{
+"slug": "milwaukee",
+"name": "Milwaukee",
+"region": "Wisconsin",
+"country": "United States",
+"cc": "us",
+"lat": 43.04,
+"lng": -87.91,
+"zoom": 10.5,
+"aliases": [
+"milwaukee"
+]
+},
+{
+"slug": "baltimore",
+"name": "Baltimore",
+"region": "Maryland",
+"country": "United States",
+"cc": "us",
+"lat": 39.29,
+"lng": -76.61,
+"zoom": 10.5,
+"aliases": [
+"baltimore"
+]
+},
+{
+"slug": "huntsville",
+"name": "Huntsville",
+"region": "Alabama",
+"country": "United States",
+"cc": "us",
+"lat": 34.73,
+"lng": -86.59,
+"zoom": 11,
+"aliases": [
+"huntsville",
+"huntsville, al"
+]
+},
+{
+"slug": "space-coast",
+"name": "Cape Canaveral",
+"region": "Florida",
+"country": "United States",
+"cc": "us",
+"lat": 28.39,
+"lng": -80.6,
+"zoom": 10,
+"aliases": [
+"cape canaveral",
+"melbourne, fl",
+"melbourne, florida",
+"titusville",
+"cocoa beach",
+"merritt island",
+"kennedy space center"
+]
+},
+{
+"slug": "brownsville",
+"name": "Brownsville",
+"region": "Texas",
+"country": "United States",
+"cc": "us",
+"lat": 25.9,
+"lng": -97.5,
+"zoom": 10,
+"aliases": [
+"brownsville",
+"starbase",
+"boca chica",
+"brownsville, tx"
+]
+},
+{
+"slug": "bastrop",
+"name": "Bastrop",
+"region": "Texas",
+"country": "United States",
+"cc": "us",
+"lat": 30.11,
+"lng": -97.32,
+"zoom": 11,
+"aliases": [
+"bastrop",
+"bastrop, tx"
+]
+},
+{
+"slug": "albuquerque",
+"name": "Albuquerque",
+"region": "New Mexico",
+"country": "United States",
+"cc": "us",
+"lat": 35.08,
+"lng": -106.65,
+"zoom": 10.5,
+"aliases": [
+"albuquerque"
+]
+},
+{
+"slug": "colorado-springs",
+"name": "Colorado Springs",
+"region": "Colorado",
+"country": "United States",
+"cc": "us",
+"lat": 38.83,
+"lng": -104.82,
+"zoom": 10.5,
+"aliases": [
+"colorado springs"
+]
+},
+{
+"slug": "boise",
+"name": "Boise",
+"region": "Idaho",
+"country": "United States",
+"cc": "us",
+"lat": 43.62,
+"lng": -116.2,
+"zoom": 11,
+"aliases": [
+"boise"
+]
+},
+{
+"slug": "richmond",
+"name": "Richmond",
+"region": "Virginia",
+"country": "United States",
+"cc": "us",
+"lat": 37.54,
+"lng": -77.44,
+"zoom": 10.5,
+"aliases": [
+"richmond, va"
+]
+},
+{
+"slug": "new-haven",
+"name": "New Haven",
+"region": "Connecticut",
+"country": "United States",
+"cc": "us",
+"lat": 41.31,
+"lng": -72.92,
+"zoom": 11,
+"aliases": [
+"new haven",
+"hartford"
+]
+},
+{
+"slug": "providence",
+"name": "Providence",
+"region": "Rhode Island",
+"country": "United States",
+"cc": "us",
+"lat": 41.82,
+"lng": -71.41,
+"zoom": 11,
+"aliases": [
+"providence"
+]
+},
+{
+"slug": "ithaca",
+"name": "Ithaca",
+"region": "New York",
+"country": "United States",
+"cc": "us",
+"lat": 42.44,
+"lng": -76.5,
+"zoom": 11,
+"aliases": [
+"ithaca"
+]
+},
+{
+"slug": "buffalo",
+"name": "Buffalo",
+"region": "New York",
+"country": "United States",
+"cc": "us",
+"lat": 42.89,
+"lng": -78.88,
+"zoom": 11,
+"aliases": [
+"buffalo",
+"rochester, ny"
+]
+},
+{
+"slug": "omaha",
+"name": "Omaha",
+"region": "Nebraska",
+"country": "United States",
+"cc": "us",
+"lat": 41.26,
+"lng": -95.94,
+"zoom": 11,
+"aliases": [
+"omaha"
+]
+},
+{
+"slug": "oklahoma-city",
+"name": "Oklahoma City",
+"region": "Oklahoma",
+"country": "United States",
+"cc": "us",
+"lat": 35.47,
+"lng": -97.52,
+"zoom": 10.5,
+"aliases": [
+"oklahoma city",
+"tulsa"
+]
+},
+{
+"slug": "honolulu",
+"name": "Honolulu",
+"region": "Hawaii",
+"country": "United States",
+"cc": "us",
+"lat": 21.31,
+"lng": -157.86,
+"zoom": 11,
+"aliases": [
+"honolulu"
+]
+},
+{
+"slug": "anchorage",
+"name": "Anchorage",
+"region": "Alaska",
+"country": "United States",
+"cc": "us",
+"lat": 61.22,
+"lng": -149.9,
+"zoom": 11,
+"aliases": [
+"anchorage"
+]
+},
+{
+"slug": "burlington",
+"name": "Burlington",
+"region": "Vermont",
+"country": "United States",
+"cc": "us",
+"lat": 44.48,
+"lng": -73.21,
+"zoom": 11,
+"aliases": [
+"burlington, vt"
+]
+},
+{
+"slug": "reno",
+"name": "Reno",
+"region": "Nevada",
+"country": "United States",
+"cc": "us",
+"lat": 39.53,
+"lng": -119.81,
+"zoom": 11,
+"aliases": [
+"reno",
+"sparks, nv"
+]
+},
+{
+"slug": "tucson",
+"name": "Tucson",
+"region": "Arizona",
+"country": "United States",
+"cc": "us",
+"lat": 32.22,
+"lng": -110.97,
+"zoom": 11,
+"aliases": [
+"tucson"
+]
+},
+{
+"slug": "jacksonville",
+"name": "Jacksonville",
+"region": "Florida",
+"country": "United States",
+"cc": "us",
+"lat": 30.33,
+"lng": -81.66,
+"zoom": 10.5,
+"aliases": [
+"jacksonville",
+"jacksonville, fl"
+]
+},
+{
+"slug": "new-orleans",
+"name": "New Orleans",
+"region": "Louisiana",
+"country": "United States",
+"cc": "us",
+"lat": 29.95,
+"lng": -90.07,
+"zoom": 11,
+"aliases": [
+"new orleans"
+]
+},
+{
+"slug": "memphis",
+"name": "Memphis",
+"region": "Tennessee",
+"country": "United States",
+"cc": "us",
+"lat": 35.15,
+"lng": -90.05,
+"zoom": 11,
+"aliases": [
+"memphis"
+]
+},
+{
+"slug": "louisville",
+"name": "Louisville",
+"region": "Kentucky",
+"country": "United States",
+"cc": "us",
+"lat": 38.25,
+"lng": -85.76,
+"zoom": 11,
+"aliases": [
+"louisville",
+"louisville, ky"
+]
+},
+{
+"slug": "des-moines",
+"name": "Des Moines",
+"region": "Iowa",
+"country": "United States",
+"cc": "us",
+"lat": 41.59,
+"lng": -93.62,
+"zoom": 11,
+"aliases": [
+"des moines"
+]
+},
+{
+"slug": "charleston",
+"name": "Charleston",
+"region": "South Carolina",
+"country": "United States",
+"cc": "us",
+"lat": 32.78,
+"lng": -79.93,
+"zoom": 11,
+"aliases": [
+"charleston",
+"charleston, sc"
+]
+},
+{
+"slug": "greenville",
+"name": "Greenville",
+"region": "South Carolina",
+"country": "United States",
+"cc": "us",
+"lat": 34.85,
+"lng": -82.4,
+"zoom": 11,
+"aliases": [
+"greenville, south carolina",
+"greenville, sc"
+]
+},
+{
+"slug": "ogden",
+"name": "Ogden",
+"region": "Utah",
+"country": "United States",
+"cc": "us",
+"lat": 41.22,
+"lng": -111.97,
+"zoom": 11,
+"aliases": [
+"ogden",
+"ogden, ut"
+]
+},
+{
+"slug": "bengaluru",
+"name": "Bengaluru",
+"region": "Karnataka",
+"country": "India",
+"cc": "in",
+"lat": 12.97,
+"lng": 77.59,
+"zoom": 11,
+"aliases": [
+"bengaluru",
+"bangalore",
+"bengaluru, karnataka",
+"bengaluru, india",
+"whitefield",
+"koramangala",
+"electronic city"
+]
+},
+{
+"slug": "pune",
+"name": "Pune",
+"region": "Maharashtra",
+"country": "India",
+"cc": "in",
+"lat": 18.52,
+"lng": 73.86,
+"zoom": 11,
+"aliases": [
+"pune",
+"hinjewadi",
+"hinjawadi",
+"pune, maharashtra",
+"kharadi",
+"baner"
+]
+},
+{
+"slug": "mumbai",
+"name": "Mumbai",
+"region": "Maharashtra",
+"country": "India",
+"cc": "in",
+"lat": 19.08,
+"lng": 72.88,
+"zoom": 10.5,
+"aliases": [
+"mumbai",
+"bombay",
+"navi mumbai",
+"thane",
+"powai",
+"andheri",
+"bkc",
+"bandra kurla complex"
+]
+},
+{
+"slug": "hyderabad",
+"name": "Hyderabad",
+"region": "Telangana",
+"country": "India",
+"cc": "in",
+"lat": 17.39,
+"lng": 78.49,
+"zoom": 11,
+"aliases": [
+"hyderabad",
+"hitech city",
+"hitec city",
+"gachibowli",
+"madhapur"
+]
+},
+{
+"slug": "delhi",
+"name": "Delhi NCR",
+"region": "Delhi",
+"country": "India",
+"cc": "in",
+"lat": 28.61,
+"lng": 77.21,
+"zoom": 10,
+"aliases": [
+"delhi ncr",
+"delhi",
+"new delhi",
+"gurgaon",
+"gurugram",
+"noida",
+"faridabad",
+"ghaziabad",
+"ncr",
+"greater noida"
+]
+},
+{
+"slug": "chennai",
+"name": "Chennai",
+"region": "Tamil Nadu",
+"country": "India",
+"cc": "in",
+"lat": 13.08,
+"lng": 80.27,
+"zoom": 11,
+"aliases": [
+"chennai",
+"madras",
+"omr, chennai"
+]
+},
+{
+"slug": "kolkata",
+"name": "Kolkata",
+"region": "West Bengal",
+"country": "India",
+"cc": "in",
+"lat": 22.57,
+"lng": 88.36,
+"zoom": 11,
+"aliases": [
+"kolkata",
+"calcutta"
+]
+},
+{
+"slug": "ahmedabad",
+"name": "Ahmedabad",
+"region": "Gujarat",
+"country": "India",
+"cc": "in",
+"lat": 23.02,
+"lng": 72.57,
+"zoom": 11,
+"aliases": [
+"ahmedabad",
+"gandhinagar",
+"gift city"
+]
+},
+{
+"slug": "jaipur",
+"name": "Jaipur",
+"region": "Rajasthan",
+"country": "India",
+"cc": "in",
+"lat": 26.91,
+"lng": 75.79,
+"zoom": 11,
+"aliases": [
+"jaipur"
+]
+},
+{
+"slug": "indore",
+"name": "Indore",
+"region": "Madhya Pradesh",
+"country": "India",
+"cc": "in",
+"lat": 22.72,
+"lng": 75.86,
+"zoom": 11,
+"aliases": [
+"indore"
+]
+},
+{
+"slug": "kochi",
+"name": "Kochi",
+"region": "Kerala",
+"country": "India",
+"cc": "in",
+"lat": 9.93,
+"lng": 76.27,
+"zoom": 11,
+"aliases": [
+"kochi",
+"cochin",
+"infopark"
+]
+},
+{
+"slug": "thiruvananthapuram",
+"name": "Thiruvananthapuram",
+"region": "Kerala",
+"country": "India",
+"cc": "in",
+"lat": 8.52,
+"lng": 76.94,
+"zoom": 11,
+"aliases": [
+"thiruvananthapuram",
+"trivandrum",
+"technopark"
+]
+},
+{
+"slug": "chandigarh",
+"name": "Chandigarh",
+"region": "Chandigarh",
+"country": "India",
+"cc": "in",
+"lat": 30.73,
+"lng": 76.78,
+"zoom": 11,
+"aliases": [
+"chandigarh",
+"mohali",
+"panchkula"
+]
+},
+{
+"slug": "coimbatore",
+"name": "Coimbatore",
+"region": "Tamil Nadu",
+"country": "India",
+"cc": "in",
+"lat": 11.02,
+"lng": 76.96,
+"zoom": 11,
+"aliases": [
+"coimbatore"
+]
+},
+{
+"slug": "bhubaneswar",
+"name": "Bhubaneswar",
+"region": "Odisha",
+"country": "India",
+"cc": "in",
+"lat": 20.3,
+"lng": 85.82,
+"zoom": 11,
+"aliases": [
+"bhubaneswar"
+]
+},
+{
+"slug": "nagpur",
+"name": "Nagpur",
+"region": "Maharashtra",
+"country": "India",
+"cc": "in",
+"lat": 21.15,
+"lng": 79.09,
+"zoom": 11,
+"aliases": [
+"nagpur"
+]
+},
+{
+"slug": "lucknow",
+"name": "Lucknow",
+"region": "Uttar Pradesh",
+"country": "India",
+"cc": "in",
+"lat": 26.85,
+"lng": 80.95,
+"zoom": 11,
+"aliases": [
+"lucknow"
+]
+},
+{
+"slug": "visakhapatnam",
+"name": "Visakhapatnam",
+"region": "Andhra Pradesh",
+"country": "India",
+"cc": "in",
+"lat": 17.69,
+"lng": 83.22,
+"zoom": 11,
+"aliases": [
+"visakhapatnam",
+"vizag"
+]
+},
+{
+"slug": "mysuru",
+"name": "Mysuru",
+"region": "Karnataka",
+"country": "India",
+"cc": "in",
+"lat": 12.3,
+"lng": 76.64,
+"zoom": 11,
+"aliases": [
+"mysuru",
+"mysore"
+]
+},
+{
+"slug": "vadodara",
+"name": "Vadodara",
+"region": "Gujarat",
+"country": "India",
+"cc": "in",
+"lat": 22.31,
+"lng": 73.18,
+"zoom": 11,
+"aliases": [
+"vadodara",
+"baroda"
+]
+},
+{
+"slug": "surat",
+"name": "Surat",
+"region": "Gujarat",
+"country": "India",
+"cc": "in",
+"lat": 21.17,
+"lng": 72.83,
+"zoom": 11,
+"aliases": [
+"surat"
+]
+},
+{
+"slug": "goa",
+"name": "Goa",
+"region": "Goa",
+"country": "India",
+"cc": "in",
+"lat": 15.49,
+"lng": 73.83,
+"zoom": 10,
+"aliases": [
+"goa",
+"panaji",
+"panjim"
+]
+},
+{
+"slug": "london",
+"name": "London",
+"region": "England",
+"country": "United Kingdom",
+"cc": "gb",
+"lat": 51.51,
+"lng": -0.13,
+"zoom": 10,
+"aliases": [
+"london",
+"london, uk",
+"london, england",
+"london, united kingdom",
+"london, gb",
+"greater london",
+"canary wharf",
+"shoreditch",
+"kings cross",
+"king's cross"
+]
+},
+{
+"slug": "manchester",
+"name": "Manchester",
+"region": "England",
+"country": "United Kingdom",
+"cc": "gb",
+"lat": 53.48,
+"lng": -2.24,
+"zoom": 11,
+"aliases": [
+"manchester",
+"manchester, uk",
+"manchester, england",
+"salford"
+]
+},
+{
+"slug": "edinburgh",
+"name": "Edinburgh",
+"region": "Scotland",
+"country": "United Kingdom",
+"cc": "gb",
+"lat": 55.95,
+"lng": -3.19,
+"zoom": 11,
+"aliases": [
+"edinburgh"
+]
+},
+{
+"slug": "cambridge-uk",
+"name": "Cambridge",
+"region": "England",
+"country": "United Kingdom",
+"cc": "gb",
+"lat": 52.21,
+"lng": 0.12,
+"zoom": 11,
+"aliases": [
+"cambridge, uk",
+"cambridge, england",
+"cambridge, united kingdom",
+"cambridge, gb"
+]
+},
+{
+"slug": "oxford",
+"name": "Oxford",
+"region": "England",
+"country": "United Kingdom",
+"cc": "gb",
+"lat": 51.75,
+"lng": -1.26,
+"zoom": 11,
+"aliases": [
+"oxford",
+"oxford, uk",
+"oxford, england"
+]
+},
+{
+"slug": "bristol",
+"name": "Bristol",
+"region": "England",
+"country": "United Kingdom",
+"cc": "gb",
+"lat": 51.45,
+"lng": -2.59,
+"zoom": 11,
+"aliases": [
+"bristol",
+"bristol, uk",
+"bristol, england"
+]
+},
+{
+"slug": "birmingham-uk",
+"name": "Birmingham",
+"region": "England",
+"country": "United Kingdom",
+"cc": "gb",
+"lat": 52.49,
+"lng": -1.9,
+"zoom": 11,
+"aliases": [
+"birmingham, uk",
+"birmingham, england",
+"birmingham, united kingdom"
+]
+},
+{
+"slug": "leeds",
+"name": "Leeds",
+"region": "England",
+"country": "United Kingdom",
+"cc": "gb",
+"lat": 53.8,
+"lng": -1.55,
+"zoom": 11,
+"aliases": [
+"leeds",
+"leeds, uk",
+"leeds, england"
+]
+},
+{
+"slug": "glasgow",
+"name": "Glasgow",
+"region": "Scotland",
+"country": "United Kingdom",
+"cc": "gb",
+"lat": 55.86,
+"lng": -4.25,
+"zoom": 11,
+"aliases": [
+"glasgow"
+]
+},
+{
+"slug": "belfast",
+"name": "Belfast",
+"region": "Northern Ireland",
+"country": "United Kingdom",
+"cc": "gb",
+"lat": 54.6,
+"lng": -5.93,
+"zoom": 11,
+"aliases": [
+"belfast"
+]
+},
+{
+"slug": "reading",
+"name": "Reading",
+"region": "England",
+"country": "United Kingdom",
+"cc": "gb",
+"lat": 51.46,
+"lng": -0.97,
+"zoom": 11,
+"aliases": [
+"reading, uk",
+"reading, england",
+"reading, berkshire"
+]
+},
+{
+"slug": "dublin",
+"name": "Dublin",
+"region": "Leinster",
+"country": "Ireland",
+"cc": "ie",
+"lat": 53.35,
+"lng": -6.26,
+"zoom": 11,
+"aliases": [
+"dublin",
+"dublin, ireland",
+"dublin, ie"
+]
+},
+{
+"slug": "cork",
+"name": "Cork",
+"region": "Munster",
+"country": "Ireland",
+"cc": "ie",
+"lat": 51.9,
+"lng": -8.47,
+"zoom": 11,
+"aliases": [
+"cork, ireland",
+"cork, ie",
+"cork"
+]
+},
+{
+"slug": "galway",
+"name": "Galway",
+"region": "Connacht",
+"country": "Ireland",
+"cc": "ie",
+"lat": 53.27,
+"lng": -9.06,
+"zoom": 11,
+"aliases": [
+"galway"
+]
+},
+{
+"slug": "toronto",
+"name": "Toronto",
+"region": "Ontario",
+"country": "Canada",
+"cc": "ca",
+"lat": 43.65,
+"lng": -79.38,
+"zoom": 10.5,
+"aliases": [
+"toronto",
+"toronto, on",
+"toronto, ontario",
+"mississauga",
+"markham",
+"scarborough, on",
+"vaughan",
+"brampton",
+"north york",
+"etobicoke"
+]
+},
+{
+"slug": "vancouver",
+"name": "Vancouver",
+"region": "British Columbia",
+"country": "Canada",
+"cc": "ca",
+"lat": 49.28,
+"lng": -123.12,
+"zoom": 11,
+"aliases": [
+"vancouver",
+"vancouver, bc",
+"vancouver, british columbia",
+"vancouver, canada",
+"burnaby",
+"richmond, bc",
+"surrey, bc",
+"north vancouver"
+]
+},
+{
+"slug": "montreal",
+"name": "Montreal",
+"region": "Quebec",
+"country": "Canada",
+"cc": "ca",
+"lat": 45.5,
+"lng": -73.57,
+"zoom": 11,
+"aliases": [
+"montreal",
+"montréal",
+"montreal, qc",
+"montreal, quebec",
+"laval, qc"
+]
+},
+{
+"slug": "waterloo",
+"name": "Waterloo",
+"region": "Ontario",
+"country": "Canada",
+"cc": "ca",
+"lat": 43.46,
+"lng": -80.52,
+"zoom": 11,
+"aliases": [
+"waterloo",
+"waterloo, on",
+"waterloo, ontario",
+"kitchener",
+"kitchener-waterloo"
+]
+},
+{
+"slug": "ottawa",
+"name": "Ottawa",
+"region": "Ontario",
+"country": "Canada",
+"cc": "ca",
+"lat": 45.42,
+"lng": -75.7,
+"zoom": 11,
+"aliases": [
+"ottawa",
+"kanata"
+]
+},
+{
+"slug": "calgary",
+"name": "Calgary",
+"region": "Alberta",
+"country": "Canada",
+"cc": "ca",
+"lat": 51.05,
+"lng": -114.07,
+"zoom": 11,
+"aliases": [
+"calgary"
+]
+},
+{
+"slug": "edmonton",
+"name": "Edmonton",
+"region": "Alberta",
+"country": "Canada",
+"cc": "ca",
+"lat": 53.55,
+"lng": -113.49,
+"zoom": 11,
+"aliases": [
+"edmonton"
+]
+},
+{
+"slug": "quebec-city",
+"name": "Quebec City",
+"region": "Quebec",
+"country": "Canada",
+"cc": "ca",
+"lat": 46.81,
+"lng": -71.21,
+"zoom": 11,
+"aliases": [
+"quebec city",
+"québec city",
+"quebec, qc"
+]
+},
+{
+"slug": "victoria-bc",
+"name": "Victoria",
+"region": "British Columbia",
+"country": "Canada",
+"cc": "ca",
+"lat": 48.43,
+"lng": -123.37,
+"zoom": 11,
+"aliases": [
+"victoria, bc"
+]
+},
+{
+"slug": "halifax",
+"name": "Halifax",
+"region": "Nova Scotia",
+"country": "Canada",
+"cc": "ca",
+"lat": 44.65,
+"lng": -63.58,
+"zoom": 11,
+"aliases": [
+"halifax",
+"halifax, ns"
+]
+},
+{
+"slug": "winnipeg",
+"name": "Winnipeg",
+"region": "Manitoba",
+"country": "Canada",
+"cc": "ca",
+"lat": 49.9,
+"lng": -97.14,
+"zoom": 11,
+"aliases": [
+"winnipeg"
+]
+},
+{
+"slug": "berlin",
+"name": "Berlin",
+"region": "Berlin",
+"country": "Germany",
+"cc": "de",
+"lat": 52.52,
+"lng": 13.4,
+"zoom": 10.5,
+"aliases": [
+"berlin",
+"berlin, germany",
+"berlin, de"
+]
+},
+{
+"slug": "munich",
+"name": "Munich",
+"region": "Bavaria",
+"country": "Germany",
+"cc": "de",
+"lat": 48.14,
+"lng": 11.58,
+"zoom": 11,
+"aliases": [
+"munich",
+"münchen",
+"munich, germany"
+]
+},
+{
+"slug": "hamburg",
+"name": "Hamburg",
+"region": "Hamburg",
+"country": "Germany",
+"cc": "de",
+"lat": 53.55,
+"lng": 9.99,
+"zoom": 11,
+"aliases": [
+"hamburg"
+]
+},
+{
+"slug": "frankfurt",
+"name": "Frankfurt",
+"region": "Hesse",
+"country": "Germany",
+"cc": "de",
+"lat": 50.11,
+"lng": 8.68,
+"zoom": 11,
+"aliases": [
+"frankfurt",
+"frankfurt am main"
+]
+},
+{
+"slug": "cologne",
+"name": "Cologne",
+"region": "North Rhine-Westphalia",
+"country": "Germany",
+"cc": "de",
+"lat": 50.94,
+"lng": 6.96,
+"zoom": 11,
+"aliases": [
+"cologne",
+"köln",
+"koeln",
+"düsseldorf",
+"dusseldorf",
+"bonn"
+]
+},
+{
+"slug": "stuttgart",
+"name": "Stuttgart",
+"region": "Baden-Württemberg",
+"country": "Germany",
+"cc": "de",
+"lat": 48.78,
+"lng": 9.18,
+"zoom": 11,
+"aliases": [
+"stuttgart"
+]
+},
+{
+"slug": "amsterdam",
+"name": "Amsterdam",
+"region": "North Holland",
+"country": "Netherlands",
+"cc": "nl",
+"lat": 52.37,
+"lng": 4.9,
+"zoom": 11,
+"aliases": [
+"amsterdam",
+"amstelveen",
+"haarlem",
+"hoofddorp",
+"schiphol"
+]
+},
+{
+"slug": "rotterdam",
+"name": "Rotterdam",
+"region": "South Holland",
+"country": "Netherlands",
+"cc": "nl",
+"lat": 51.92,
+"lng": 4.48,
+"zoom": 11,
+"aliases": [
+"rotterdam",
+"the hague",
+"den haag",
+"delft",
+"leiden"
+]
+},
+{
+"slug": "utrecht",
+"name": "Utrecht",
+"region": "Utrecht",
+"country": "Netherlands",
+"cc": "nl",
+"lat": 52.09,
+"lng": 5.12,
+"zoom": 11,
+"aliases": [
+"utrecht",
+"amersfoort"
+]
+},
+{
+"slug": "eindhoven",
+"name": "Eindhoven",
+"region": "North Brabant",
+"country": "Netherlands",
+"cc": "nl",
+"lat": 51.44,
+"lng": 5.47,
+"zoom": 11,
+"aliases": [
+"eindhoven"
+]
+},
+{
+"slug": "paris",
+"name": "Paris",
+"region": "Île-de-France",
+"country": "France",
+"cc": "fr",
+"lat": 48.86,
+"lng": 2.35,
+"zoom": 10.5,
+"aliases": [
+"paris",
+"paris, france",
+"île-de-france",
+"ile-de-france",
+"boulogne-billancourt",
+"la défense",
+"la defense",
+"levallois",
+"issy-les-moulineaux",
+"saint-denis"
+]
+},
+{
+"slug": "lyon",
+"name": "Lyon",
+"region": "Auvergne-Rhône-Alpes",
+"country": "France",
+"cc": "fr",
+"lat": 45.76,
+"lng": 4.84,
+"zoom": 11,
+"aliases": [
+"lyon"
+]
+},
+{
+"slug": "toulouse",
+"name": "Toulouse",
+"region": "Occitanie",
+"country": "France",
+"cc": "fr",
+"lat": 43.6,
+"lng": 1.44,
+"zoom": 11,
+"aliases": [
+"toulouse"
+]
+},
+{
+"slug": "nice",
+"name": "Nice",
+"region": "Provence-Alpes-Côte d'Azur",
+"country": "France",
+"cc": "fr",
+"lat": 43.7,
+"lng": 7.27,
+"zoom": 11,
+"aliases": [
+"nice, france",
+"sophia antipolis",
+"sophia-antipolis",
+"antibes"
+]
+},
+{
+"slug": "nantes",
+"name": "Nantes",
+"region": "Pays de la Loire",
+"country": "France",
+"cc": "fr",
+"lat": 47.22,
+"lng": -1.55,
+"zoom": 11,
+"aliases": [
+"nantes"
+]
+},
+{
+"slug": "bordeaux",
+"name": "Bordeaux",
+"region": "Nouvelle-Aquitaine",
+"country": "France",
+"cc": "fr",
+"lat": 44.84,
+"lng": -0.58,
+"zoom": 11,
+"aliases": [
+"bordeaux"
+]
+},
+{
+"slug": "lille",
+"name": "Lille",
+"region": "Hauts-de-France",
+"country": "France",
+"cc": "fr",
+"lat": 50.63,
+"lng": 3.06,
+"zoom": 11,
+"aliases": [
+"lille"
+]
+},
+{
+"slug": "grenoble",
+"name": "Grenoble",
+"region": "Auvergne-Rhône-Alpes",
+"country": "France",
+"cc": "fr",
+"lat": 45.19,
+"lng": 5.72,
+"zoom": 11,
+"aliases": [
+"grenoble"
+]
+},
+{
+"slug": "marseille",
+"name": "Marseille",
+"region": "Provence-Alpes-Côte d'Azur",
+"country": "France",
+"cc": "fr",
+"lat": 43.3,
+"lng": 5.37,
+"zoom": 11,
+"aliases": [
+"marseille"
+]
+},
+{
+"slug": "stockholm",
+"name": "Stockholm",
+"region": "Stockholm",
+"country": "Sweden",
+"cc": "se",
+"lat": 59.33,
+"lng": 18.07,
+"zoom": 10.5,
+"aliases": [
+"stockholm",
+"stockholm, sweden",
+"solna",
+"kista"
+]
+},
+{
+"slug": "gothenburg",
+"name": "Gothenburg",
+"region": "Västra Götaland",
+"country": "Sweden",
+"cc": "se",
+"lat": 57.71,
+"lng": 11.97,
+"zoom": 11,
+"aliases": [
+"gothenburg",
+"göteborg",
+"goteborg"
+]
+},
+{
+"slug": "malmo",
+"name": "Malmö",
+"region": "Skåne",
+"country": "Sweden",
+"cc": "se",
+"lat": 55.6,
+"lng": 13.0,
+"zoom": 11,
+"aliases": [
+"malmö",
+"malmo",
+"lund, sweden"
+]
+},
+{
+"slug": "copenhagen",
+"name": "Copenhagen",
+"region": "Capital Region",
+"country": "Denmark",
+"cc": "dk",
+"lat": 55.68,
+"lng": 12.57,
+"zoom": 11,
+"aliases": [
+"copenhagen",
+"københavn",
+"kobenhavn",
+"copenhagen, denmark"
+]
+},
+{
+"slug": "aarhus",
+"name": "Aarhus",
+"region": "Central Denmark",
+"country": "Denmark",
+"cc": "dk",
+"lat": 56.16,
+"lng": 10.2,
+"zoom": 11,
+"aliases": [
+"aarhus",
+"århus"
+]
+},
+{
+"slug": "zurich",
+"name": "Zurich",
+"region": "Zurich",
+"country": "Switzerland",
+"cc": "ch",
+"lat": 47.38,
+"lng": 8.54,
+"zoom": 11,
+"aliases": [
+"zurich",
+"zürich",
+"zurich, switzerland",
+"zug"
+]
+},
+{
+"slug": "geneva",
+"name": "Geneva",
+"region": "Geneva",
+"country": "Switzerland",
+"cc": "ch",
+"lat": 46.2,
+"lng": 6.14,
+"zoom": 11,
+"aliases": [
+"geneva",
+"genève",
+"geneve",
+"lausanne"
+]
+},
+{
+"slug": "basel",
+"name": "Basel",
+"region": "Basel-Stadt",
+"country": "Switzerland",
+"cc": "ch",
+"lat": 47.56,
+"lng": 7.59,
+"zoom": 11,
+"aliases": [
+"basel"
+]
+},
+{
+"slug": "bern",
+"name": "Bern",
+"region": "Bern",
+"country": "Switzerland",
+"cc": "ch",
+"lat": 46.95,
+"lng": 7.45,
+"zoom": 11,
+"aliases": [
+"bern"
+]
+},
+{
+"slug": "madrid",
+"name": "Madrid",
+"region": "Community of Madrid",
+"country": "Spain",
+"cc": "es",
+"lat": 40.42,
+"lng": -3.7,
+"zoom": 10.5,
+"aliases": [
+"madrid",
+"madrid, spain"
+]
+},
+{
+"slug": "barcelona",
+"name": "Barcelona",
+"region": "Catalonia",
+"country": "Spain",
+"cc": "es",
+"lat": 41.39,
+"lng": 2.17,
+"zoom": 11,
+"aliases": [
+"barcelona",
+"barcelona, spain"
+]
+},
+{
+"slug": "valencia",
+"name": "Valencia",
+"region": "Valencian Community",
+"country": "Spain",
+"cc": "es",
+"lat": 39.47,
+"lng": -0.38,
+"zoom": 11,
+"aliases": [
+"valencia",
+"valencia, spain"
+]
+},
+{
+"slug": "malaga",
+"name": "Málaga",
+"region": "Andalusia",
+"country": "Spain",
+"cc": "es",
+"lat": 36.72,
+"lng": -4.42,
+"zoom": 11,
+"aliases": [
+"málaga",
+"malaga",
+"marbella"
+]
+},
+{
+"slug": "seville",
+"name": "Seville",
+"region": "Andalusia",
+"country": "Spain",
+"cc": "es",
+"lat": 37.39,
+"lng": -5.98,
+"zoom": 11,
+"aliases": [
+"seville",
+"sevilla"
+]
+},
+{
+"slug": "bilbao",
+"name": "Bilbao",
+"region": "Basque Country",
+"country": "Spain",
+"cc": "es",
+"lat": 43.26,
+"lng": -2.93,
+"zoom": 11,
+"aliases": [
+"bilbao"
+]
+},
+{
+"slug": "lisbon",
+"name": "Lisbon",
+"region": "Lisbon",
+"country": "Portugal",
+"cc": "pt",
+"lat": 38.72,
+"lng": -9.14,
+"zoom": 11,
+"aliases": [
+"lisbon",
+"lisboa",
+"lisbon, portugal",
+"oeiras",
+"cascais"
+]
+},
+{
+"slug": "porto",
+"name": "Porto",
+"region": "Norte",
+"country": "Portugal",
+"cc": "pt",
+"lat": 41.16,
+"lng": -8.63,
+"zoom": 11,
+"aliases": [
+"porto",
+"porto, portugal",
+"braga"
+]
+},
+{
+"slug": "tel-aviv",
+"name": "Tel Aviv",
+"region": "Tel Aviv District",
+"country": "Israel",
+"cc": "il",
+"lat": 32.08,
+"lng": 34.78,
+"zoom": 11,
+"aliases": [
+"tel aviv",
+"tel-aviv",
+"tel aviv, israel",
+"ramat gan",
+"herzliya",
+"herzeliya",
+"petah tikva",
+"petach tikva",
+"bnei brak",
+"ra'anana",
+"raanana",
+"rehovot",
+"netanya",
+"hod hasharon",
+"kfar saba",
+"rosh haayin",
+"yokneam"
+]
+},
+{
+"slug": "jerusalem",
+"name": "Jerusalem",
+"region": "Jerusalem District",
+"country": "Israel",
+"cc": "il",
+"lat": 31.77,
+"lng": 35.21,
+"zoom": 11,
+"aliases": [
+"jerusalem"
+]
+},
+{
+"slug": "haifa",
+"name": "Haifa",
+"region": "Haifa District",
+"country": "Israel",
+"cc": "il",
+"lat": 32.79,
+"lng": 34.99,
+"zoom": 11,
+"aliases": [
+"haifa",
+"caesarea",
+"yokne'am"
+]
+},
+{
+"slug": "beer-sheva",
+"name": "Be'er Sheva",
+"region": "Southern District",
+"country": "Israel",
+"cc": "il",
+"lat": 31.25,
+"lng": 34.79,
+"zoom": 11,
+"aliases": [
+"be'er sheva",
+"beer sheva",
+"beersheba"
+]
+},
+{
+"slug": "singapore",
+"name": "Singapore",
+"region": "Singapore",
+"country": "Singapore",
+"cc": "sg",
+"lat": 1.35,
+"lng": 103.82,
+"zoom": 11,
+"aliases": [
+"singapore",
+"singapore, sg",
+"singapore, singapore"
+]
+},
+{
+"slug": "sydney",
+"name": "Sydney",
+"region": "New South Wales",
+"country": "Australia",
+"cc": "au",
+"lat": -33.87,
+"lng": 151.21,
+"zoom": 10.5,
+"aliases": [
+"sydney",
+"sydney, nsw",
+"sydney, australia",
+"north sydney",
+"parramatta"
+]
+},
+{
+"slug": "melbourne",
+"name": "Melbourne",
+"region": "Victoria",
+"country": "Australia",
+"cc": "au",
+"lat": -37.81,
+"lng": 144.96,
+"zoom": 10.5,
+"aliases": [
+"melbourne",
+"melbourne, vic",
+"melbourne, victoria",
+"melbourne, australia"
+]
+},
+{
+"slug": "brisbane",
+"name": "Brisbane",
+"region": "Queensland",
+"country": "Australia",
+"cc": "au",
+"lat": -27.47,
+"lng": 153.03,
+"zoom": 11,
+"aliases": [
+"brisbane",
+"brisbane, qld",
+"brisbane, australia",
+"gold coast"
+]
+},
+{
+"slug": "perth",
+"name": "Perth",
+"region": "Western Australia",
+"country": "Australia",
+"cc": "au",
+"lat": -31.95,
+"lng": 115.86,
+"zoom": 11,
+"aliases": [
+"perth",
+"perth, wa",
+"perth, australia"
+]
+},
+{
+"slug": "adelaide",
+"name": "Adelaide",
+"region": "South Australia",
+"country": "Australia",
+"cc": "au",
+"lat": -34.93,
+"lng": 138.6,
+"zoom": 11,
+"aliases": [
+"adelaide"
+]
+},
+{
+"slug": "canberra",
+"name": "Canberra",
+"region": "Australian Capital Territory",
+"country": "Australia",
+"cc": "au",
+"lat": -35.28,
+"lng": 149.13,
+"zoom": 11,
+"aliases": [
+"canberra"
+]
+},
+{
+"slug": "auckland",
+"name": "Auckland",
+"region": "Auckland",
+"country": "New Zealand",
+"cc": "nz",
+"lat": -36.85,
+"lng": 174.76,
+"zoom": 11,
+"aliases": [
+"auckland"
+]
+},
+{
+"slug": "wellington",
+"name": "Wellington",
+"region": "Wellington",
+"country": "New Zealand",
+"cc": "nz",
+"lat": -41.29,
+"lng": 174.78,
+"zoom": 11,
+"aliases": [
+"wellington",
+"wellington, nz",
+"wellington, new zealand"
+]
+},
+{
+"slug": "christchurch",
+"name": "Christchurch",
+"region": "Canterbury",
+"country": "New Zealand",
+"cc": "nz",
+"lat": -43.53,
+"lng": 172.64,
+"zoom": 11,
+"aliases": [
+"christchurch"
+]
+},
+{
+"slug": "dubai",
+"name": "Dubai",
+"region": "Dubai",
+"country": "United Arab Emirates",
+"cc": "ae",
+"lat": 25.2,
+"lng": 55.27,
+"zoom": 11,
+"aliases": [
+"dubai",
+"dubai, uae",
+"dubai, united arab emirates",
+"dubai internet city"
+]
+},
+{
+"slug": "abu-dhabi",
+"name": "Abu Dhabi",
+"region": "Abu Dhabi",
+"country": "United Arab Emirates",
+"cc": "ae",
+"lat": 24.45,
+"lng": 54.38,
+"zoom": 11,
+"aliases": [
+"abu dhabi",
+"abu dhabi, uae"
+]
+},
+{
+"slug": "london-on",
+"name": "London",
+"region": "Ontario",
+"country": "Canada",
+"cc": "ca",
+"lat": 42.98,
+"lng": -81.25,
+"zoom": 11,
+"aliases": [
+"london, ontario",
+"london, on",
+"london, on, canada",
+"london, canada"
+]
+}
+]

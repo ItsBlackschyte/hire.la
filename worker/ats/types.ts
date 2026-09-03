@@ -11,7 +11,6 @@ export interface NormalizedJob {
   /** Raw location string from the ATS, e.g. "Santa Monica, CA" or "Remote - US". */
   locationText: string;
   applyUrl: string;
-  descriptionHtml?: string;
   postedAt?: string;
   workplaceType?: 'onsite' | 'hybrid' | 'remote';
   employmentType?: string;
