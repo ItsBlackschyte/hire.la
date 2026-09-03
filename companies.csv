@@ -1,0 +1,11 @@
+name,website,ats_type,ats_token,address,city,is_hq,verified
+SpaceX,https://www.spacex.com,greenhouse,spacex,"1 Rocket Rd, Hawthorne, CA",Hawthorne,true,no
+Relativity Space,https://www.relativityspace.com,greenhouse,relativity,"Long Beach, CA",Long Beach,true,no
+GoodRx,https://www.goodrx.com,greenhouse,goodrx,"Santa Monica, CA",Santa Monica,true,no
+Scopely,https://www.scopely.com,greenhouse,scopely,"Culver City, CA",Culver City,true,no
+ServiceTitan,https://www.servicetitan.com,greenhouse,servicetitan,"Glendale, CA",Glendale,true,no
+Whatnot,https://www.whatnot.com,greenhouse,whatnot,"Marina del Rey, CA",Los Angeles,true,no
+Dave,https://www.dave.com,greenhouse,dave,"Los Angeles, CA",Los Angeles,true,no
+Anduril,https://www.anduril.com,lever,anduril,"Costa Mesa, CA",Costa Mesa,true,no
+Boulevard,https://www.joinblvd.com,greenhouse,boulevard,"West Hollywood, CA",West Hollywood,true,no
+FabFitFun,https://www.fabfitfun.com,lever,fabfitfun,"West Hollywood, CA",West Hollywood,true,no
