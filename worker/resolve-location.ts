@@ -146,6 +146,7 @@ export class LocationResolver {
       .insert({
         company_id: company.id, label: city.name, address: poi?.display ?? null, city: city.name, city_slug: citySlug,
         geom: `SRID=4326;POINT(${point.lng} ${point.lat})`, is_hq: isFirstOffice, precision,
+        source: poi ? 'osm' : 'placeholder',
       })
       .select('id, company_id, city, city_slug, is_hq, precision')
       .single();
@@ -213,12 +214,12 @@ export function cleanLocationText(raw: string): string {
   return t.length < 2 ? '' : t;
 }
 
-/** Deterministic ~150–450 m offset so several city-center pins don't stack. */
+/** Deterministic ~200–800 m offset so several city-center pins don't stack. */
 function jitter(city: { lat: number; lng: number }, seed: string): { lat: number; lng: number } {
   let h = 0;
   for (const ch of seed) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
   const angle = ((h % 360) * Math.PI) / 180;
-  const meters = 150 + (h % 300);
+  const meters = 200 + (h % 600);
   return {
     lat: city.lat + (meters * Math.cos(angle)) / 111_320,
     lng: city.lng + (meters * Math.sin(angle)) / (111_320 * Math.cos((city.lat * Math.PI) / 180)),

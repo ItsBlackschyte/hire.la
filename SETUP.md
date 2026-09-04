@@ -40,6 +40,7 @@ npm run typecheck        # should print nothing (no errors)
    - `supabase/migrations/0006_pins_logo.sql` — pins carry the company logo. Run `npm run logos` afterwards.
    - `supabase/migrations/0007_cities.sql` — auto-discovered cities, multi-location companies, pin precision.
    - `supabase/migrations/0008_lean_jobs.sql` — drops stored descriptions (fetched from the ATS at page render instead) and adds the excluded flag for out-of-scope places.
+   - `supabase/migrations/0009_office_lookups.sql` — bookkeeping for the office finder (`lookup_tried_at`, `source`).
 
    Each should end with "Success. No rows returned."
 4. **Table Editor** → confirm `companies`, `locations`, `jobs` exist (each shows an RLS shield icon).
@@ -152,7 +153,14 @@ The worker reads each job's location string ("Pune, Maharashtra, India", "Redmon
 | `poi` | the company's office found in OpenStreetMap | automatic when OSM has it |
 | `city` | near the city center, drawn with a dashed ring, marked "≈ city" | automatic fallback |
 
-Job feeds never include street addresses, so `city` is the honest default for offices you haven't curated. To make any pin exact, add its address to `companies.csv` and re-run the seed — the worker reuses that row from then on. Remote roles pin to HQ with a Remote badge. Metro grouping (Santa Monica → Los Angeles, Palo Alto → San Francisco…) lives in `lib/metro.ts`.
+Job feeds never include street addresses, so `city` is the honest default until the **office finder** upgrades it:
+
+```
+npm run offices -- --hq-only        # Wikidata → company website → OpenStreetMap; HQ rows first
+npm run offices                     # every placeholder location (slower)
+```
+
+Runs weekly on GitHub too (`enrich-companies` workflow — offices + logos, manual trigger available; it commits new logo files back, so `git pull` afterwards). Each candidate is verified to lie within 60 km of the city before it's accepted; failures stay as placeholders (spread 200–800 m around the center) and are retried after 60 days. Expect roughly a third to a half of companies to be placed exactly — small startups often publish no address anywhere free. To make any pin exact, add its address to `companies.csv` and re-run the seed — the worker reuses that row from then on. Remote roles pin to HQ with a Remote badge. Metro grouping (Santa Monica → Los Angeles, Palo Alto → San Francisco…) lives in `lib/metro.ts`.
 
 Watch the `+cities` / `+offices` columns in the run summary to see what a run discovered.
 

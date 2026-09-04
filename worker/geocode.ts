@@ -78,3 +78,18 @@ export async function findCompanyPoi(
   }
   return null;
 }
+
+const AREA_TYPES = new Set(['city', 'town', 'village', 'municipality', 'administrative', 'postcode', 'state', 'county', 'suburb', 'neighbourhood', 'quarter', 'country', 'region', 'district', 'boundary']);
+
+/**
+ * Geocode a street address. `precise` is true only when Nominatim matched a
+ * building/road/office-level feature — a city or postcode match is not an
+ * office location and must not be recorded as one.
+ */
+export async function geocodeAddress(text: string): Promise<{ lat: number; lng: number; display: string; precise: boolean } | null> {
+  const results = await query({ q: text, limit: '1' });
+  const r = results[0] as (NominatimResult & { addresstype?: string }) | undefined;
+  if (!r) return null;
+  const t = (r.addresstype ?? r.type ?? '').toLowerCase();
+  return { lat: parseFloat(r.lat), lng: parseFloat(r.lon), display: r.display_name, precise: !AREA_TYPES.has(t) };
+}

@@ -13,7 +13,8 @@
     "ats": "tsx worker/test-adapter.ts",
     "worker": "tsx worker/fetch-jobs.ts",
     "logos": "tsx scripts/logos.ts",
-    "discover": "tsx scripts/discover.ts"
+    "discover": "tsx scripts/discover.ts",
+    "offices": "tsx scripts/offices.ts"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.3.0",

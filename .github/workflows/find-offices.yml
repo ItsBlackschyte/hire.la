@@ -1,0 +1,46 @@
+name: find-offices
+
+# Upgrade placeholder pins to real office positions (Wikidata → company
+# website → OpenStreetMap). Weekly, plus manual. Safe to re-run: only
+# placeholder rows not tried in the last 60 days are attempted.
+
+on:
+  schedule:
+    - cron: "0 6 * * 0"   # Sundays 06:00 UTC
+  workflow_dispatch:
+    inputs:
+      hq_only:
+        description: "HQ rows only (fastest, biggest win)"
+        type: boolean
+        default: true
+      sources:
+        description: "Comma-separated: wikidata,website,osm"
+        default: "wikidata,website,osm"
+      limit:
+        description: "Max locations to try (0 = all)"
+        default: "0"
+
+concurrency:
+  group: hire-la-worker
+  cancel-in-progress: false
+
+jobs:
+  offices:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Find offices
+        run: |
+          ARGS="--sources ${{ inputs.sources || 'wikidata,website,osm' }}"
+          if [ "${{ inputs.hq_only }}" != "false" ]; then ARGS="$ARGS --hq-only"; fi
+          if [ "${{ inputs.limit || '0' }}" != "0" ]; then ARGS="$ARGS --limit ${{ inputs.limit }}"; fi
+          npm run offices -- $ARGS
