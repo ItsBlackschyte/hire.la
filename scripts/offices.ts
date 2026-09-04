@@ -222,16 +222,26 @@ async function main() {
   const upgraded = await count((q) => q.select('id', { count: 'exact', head: true }).in('source', ['wikidata', 'website', 'osm']));
   console.log(`placeholders: ${totalPlaceholders} total (${hqPlaceholders} HQ, ${totalPlaceholders - hqPlaceholders} branch offices) · ${locked} tried in the last ${RETRY_AFTER_DAYS} days${RETRY_ALL ? ' (retrying anyway)' : ''} · ${upgraded} already upgraded to real offices`);
 
-  let q = db
-    .from('locations')
-    .select('id, is_hq, city, city_slug, companies!inner ( slug, name, website )')
-    .eq('precision', 'city')
-    .order('is_hq', { ascending: false });
-  if (!RETRY_ALL) q = q.or(`lookup_tried_at.is.null,lookup_tried_at.lt.${since}`);
-  if (HQ_ONLY) q = q.eq('is_hq', true);
-  if (ONLY_COMPANY) q = q.eq('companies.slug', ONLY_COMPANY);
-  const { data, error } = await q.limit(LIMIT === Infinity ? 5000 : LIMIT);
-  if (error) throw error;
+  // Supabase returns at most 1000 rows per request — page through.
+  const PAGE = 1000;
+  const collected: unknown[] = [];
+  for (let from = 0; collected.length < LIMIT; from += PAGE) {
+    let q = db
+      .from('locations')
+      .select('id, is_hq, city, city_slug, companies!inner ( slug, name, website )')
+      .eq('precision', 'city')
+      .order('is_hq', { ascending: false })
+      .order('id')
+      .range(from, from + PAGE - 1);
+    if (!RETRY_ALL) q = q.or(`lookup_tried_at.is.null,lookup_tried_at.lt.${since}`);
+    if (HQ_ONLY) q = q.eq('is_hq', true);
+    if (ONLY_COMPANY) q = q.eq('companies.slug', ONLY_COMPANY);
+    const { data: page, error } = await q;
+    if (error) throw error;
+    collected.push(...(page ?? []));
+    if (!page || page.length < PAGE) break;
+  }
+  const data = collected.slice(0, LIMIT === Infinity ? undefined : LIMIT);
 
   // locations.city_slug → cities.slug isn't a foreign key, so city centers are fetched separately
   const { data: cityRows, error: cityErr } = await db.from('cities').select('slug, name, lat, lng, country').limit(5000);

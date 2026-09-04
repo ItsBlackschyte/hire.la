@@ -57,19 +57,22 @@ export async function geocodeCity(text: string): Promise<GeocodedCity | null> {
   };
 }
 
-const POI_CLASSES = new Set(['office', 'building', 'amenity', 'shop', 'industrial', 'commercial', 'landuse', 'man_made']);
+// Office-like OSM features only. No amenity/shop: "Julius" must not match "Julius' Castle" (a restaurant).
+const POI_CLASSES = new Set(['office', 'building', 'industrial', 'commercial', 'man_made']);
+const norm = (s: string) => s.toLowerCase().replace(/\b(inc|llc|ltd|corp|co|labs?|technologies|technology)\b/g, '').replace(/[^a-z0-9]/g, '');
 
-/** Try to find the company's actual office in OSM near a city. */
+/** Try to find the company's actual office in OSM near a city (full-name match, office-type feature). */
 export async function findCompanyPoi(
   company: string,
   city: GeocodedCity | { name: string; lat: number; lng: number },
 ): Promise<{ lat: number; lng: number; display: string } | null> {
-  const results = await query({ q: `${company}, ${city.name}`, limit: '3' });
-  const needle = company.toLowerCase().split(/\s+/)[0];
+  const results = await query({ q: `${company}, ${city.name}`, limit: '5' });
+  const want = norm(company);
+  if (want.length < 3) return null;
   for (const r of results) {
-    const name = r.display_name.toLowerCase();
-    if (!name.includes(needle)) continue;
-    if (r.class && !POI_CLASSES.has(r.class)) continue;
+    const placeName = norm(r.display_name.split(',')[0]); // the feature's own name, not the whole address
+    if (placeName !== want && !placeName.startsWith(want)) continue;
+    if (!r.class || !POI_CLASSES.has(r.class)) continue;
     const lat = parseFloat(r.lat);
     const lng = parseFloat(r.lon);
     const km = Math.hypot((lat - city.lat) * 111, (lng - city.lng) * 111 * Math.cos((city.lat * Math.PI) / 180));
