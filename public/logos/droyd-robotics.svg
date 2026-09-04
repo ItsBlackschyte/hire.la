@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="Droyd Robotics">
+  <!-- Maroon dashed flower-of-life mark. Recolor by editing the stroke value below. -->
+  <g fill="none" stroke="#A63F3F" stroke-width="1" stroke-dasharray="2.4 2.4">
+    <!-- outer boundary -->
+    <circle cx="63.75" cy="64.25" r="63.74"/>
+    <!-- inner ring, r 47.68 -->
+    <circle cx="47.68" cy="64" r="47.68"/>
+    <circle cx="80.32" cy="64" r="47.68"/>
+    <circle cx="64" cy="48.19" r="47.68"/>
+    <circle cx="64" cy="79.81" r="47.68"/>
+    <!-- mid ring, r 31.87 (tangent at center) -->
+    <circle cx="31.87" cy="64" r="31.87"/>
+    <circle cx="96.13" cy="62.98" r="31.87"/>
+    <circle cx="64.51" cy="32.38" r="31.87"/>
+    <circle cx="64.51" cy="95.62" r="31.87"/>
+    <!-- outer petals, r 16.06 -->
+    <circle cx="16.06" cy="62.98" r="16.06"/>
+    <circle cx="111.94" cy="64" r="16.06"/>
+    <circle cx="63.49" cy="16.06" r="16.06"/>
+    <circle cx="64.51" cy="111.43" r="16.06"/>
+  </g>
+</svg>

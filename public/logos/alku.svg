@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>ALKU Favicon</title>
+    <defs>
+        <polygon id="path-1" points="0 0 14 0 14 16 0 16"></polygon>
+    </defs>
+    <g id="ALKU-Favicon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ALKUNewLogoSECONDARY-AOnly–Red" transform="translate(1.000000, 0.000000)">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <g id="Clip-2"></g>
+            <polyline id="Fill-1" fill="#C5252B" mask="url(#mask-2)" points="9.47060608 0 5.4720362 0 0 16 3.6942655 16 5.00843286 11.6323076 7.46247913 3.9879961 8.89658021 8.45515592 7.10619336 8.45515592 6.23423364 11.1713174 9.76853993 11.1713174 10.3057345 12.8446418 14 12.8446418 9.47060608 0"></polyline>
+        </g>
+    </g>
+</svg>
