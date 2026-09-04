@@ -26,11 +26,12 @@ interface Props {
   pins: Pin[];
   selectedId: string | null;
   onSelect: (pin: Pin | null) => void;
+  focus?: { center: [number, number]; zoom: number } | null;
 }
 
 type PinFeature = GeoJSON.Feature<GeoJSON.Point, Pin>;
 
-export default function JobMapLeaflet({ city, pins, selectedId, onSelect }: Props) {
+export default function JobMapLeaflet({ city, pins, selectedId, onSelect, focus }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const layerRef = useRef<L.LayerGroup | null>(null);
@@ -71,6 +72,12 @@ export default function JobMapLeaflet({ city, pins, selectedId, onSelect }: Prop
     if (!map) return;
     map.flyTo([city.center[1], city.center[0]], Math.round(city.zoom), { duration: 2 });
   }, [city.slug, city.center, city.zoom]);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !focus) return;
+    map.flyTo([focus.center[1], focus.center[0]], Math.round(focus.zoom), { duration: 1.4 });
+  }, [focus]);
 
   // ------------------------------------------------- pins → cluster index
   useEffect(() => {

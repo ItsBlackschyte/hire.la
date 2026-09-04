@@ -1022,3 +1022,172 @@ html[data-map-style="dark"] .cluster-body { border-color: #ffffff; }
   padding: 3px 8px;
   white-space: nowrap;
 }
+
+
+/* ============================================================
+   Company combobox
+   ============================================================ */
+.combobox input[type="text"] {
+  font: inherit;
+  font-size: 13px;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 8px 12px;
+  min-height: 40px;
+  width: 100%;
+}
+
+.combobox input[type="text"]:hover { border-color: #d1d5db; }
+.combobox input[type="text"]:focus-visible { outline: 2px solid var(--ink-soft); outline-offset: 1px; }
+.combobox input::placeholder { color: var(--ink-faint); }
+
+.combobox-selected {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 6px 8px 6px 10px;
+  border: 1px solid var(--ink);
+  border-radius: 10px;
+  background: var(--paper);
+  font-size: 13px;
+}
+
+.combobox-selected-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
+
+.combobox-clear {
+  border: none;
+  background: transparent;
+  color: var(--ink-soft);
+  font-size: 18px;
+  line-height: 1;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.combobox-clear:hover { background: var(--canvas); color: var(--ink); }
+
+.combobox-list {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper);
+  max-height: 280px;
+  overflow-y: auto;
+  box-shadow: 0 6px 20px rgba(17, 20, 24, 0.08);
+}
+
+.combobox-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 8px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.combobox-item.active { background: var(--canvas-deep); }
+.combobox-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.combobox-count { flex: none; font-size: 12px; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+.combobox-empty { padding: 10px 8px; font-size: 13px; color: var(--ink-soft); }
+
+.combobox-logo {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: none;
+  background: var(--canvas-deep);
+}
+.combobox-mono {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ink);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+
+/* ============================================================
+   Accounts: sign-in, avatar, saved, alerts
+   ============================================================ */
+.user-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 12px;
+  padding: 10px 14px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  cursor: pointer;
+}
+.google-btn:hover { background: var(--canvas); border-color: #d1d5db; }
+.google-btn:focus-visible { outline: 2px solid var(--ink-soft); outline-offset: 2px; }
+
+.popover-fine { margin: 10px 0 0; font-size: 11.5px; line-height: 1.5; color: var(--ink-faint); }
+.popover-links-col { flex-direction: column; gap: 8px; align-items: flex-start; }
+.popover-links-col a, .popover-links-col .link-button { font-size: 13.5px; text-decoration: none; color: var(--ink); }
+.popover-links-col .link-button:hover, .popover-links-col a:hover { color: var(--ink-soft); }
+
+.save-btn {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink-soft);
+  border-radius: 8px;
+  cursor: pointer;
+  font: inherit;
+}
+.save-btn.sm { width: 34px; height: 34px; justify-content: center; }
+.save-btn.lg { padding: 11px 16px; font-size: 14px; font-weight: 600; border-radius: 10px; }
+.save-btn:hover { color: var(--ink); border-color: #d1d5db; }
+.save-btn.on { color: var(--ink); border-color: var(--ink); }
+.save-btn:focus-visible { outline: 2px solid var(--ink-soft); outline-offset: 2px; }
+
+.cta-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+.job-closed .job-title a { color: var(--ink-soft); }
+
+.alert-toggle {
+  position: absolute;
+  right: 12px;
+  bottom: 40px;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: min(78vw, 360px);
+  padding: 8px 12px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(17, 20, 24, 0.08);
+  font-size: 13px;
+  color: var(--ink);
+  cursor: pointer;
+}
+.alert-toggle input { accent-color: var(--ink); width: 16px; height: 16px; flex: none; }
+.alert-toggle.on { border-color: var(--ink); }
+
+@media (min-width: 900px) {
+  .alert-toggle { right: 16px; bottom: 44px; }
+}

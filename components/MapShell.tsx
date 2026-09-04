@@ -8,6 +8,7 @@ import { useCities } from '@/lib/useCities';
 import { webglAvailable } from '@/lib/webgl';
 import type { Pin } from '@/lib/types';
 import CompanyPanel from './CompanyPanel';
+import AlertToggle from './AlertToggle';
 
 /**
  * Client boundary + data owner for the map.
@@ -31,6 +32,7 @@ export default function MapShell() {
   const cities = useCities();
   const city = cityBySlug(cities, params.get('city'));
   const cat = params.get('cat');
+  const company = params.get('company');
   const [pins, setPins] = useState<Pin[]>([]);
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
   const [errorDetail, setErrorDetail] = useState<string | null>(null);
@@ -62,6 +64,7 @@ export default function MapShell() {
     setSelected(null);
     const q = new URLSearchParams({ city: city.slug });
     if (cat) q.set('cat', cat);
+    if (company) q.set('company', company);
     fetch(`/api/pins?${q.toString()}`)
       .then(async (r) => {
         const json = (await r.json().catch(() => ({}))) as { pins?: Pin[]; error?: string };
@@ -83,7 +86,18 @@ export default function MapShell() {
     return () => {
       cancelled = true;
     };
-  }, [city.slug, cat, retryKey]);
+  }, [city.slug, cat, company, retryKey]);
+
+  // Company chosen → focus its office: select the pin and fly there.
+  const [focus, setFocus] = useState<{ center: [number, number]; zoom: number } | null>(null);
+  useEffect(() => {
+    if (!company || status !== 'ready') return;
+    const pin = pins.find((p) => p.company_slug === company && p.open_jobs > 0) ?? pins.find((p) => p.company_slug === company);
+    if (!pin) return;
+    setSelected(pin);
+    setFocus({ center: [pin.lng, pin.lat], zoom: Math.max(city.zoom, 13) });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [company, status, pins]);
 
   return (
     <>
@@ -91,6 +105,7 @@ export default function MapShell() {
       {engine === 'maplibre' && (
         <JobMap
           city={city}
+          focus={focus}
           pins={visiblePins}
           selectedId={selected?.location_id ?? null}
           onSelect={setSelected}
@@ -99,12 +114,14 @@ export default function MapShell() {
       {engine === 'leaflet' && (
         <JobMapLeaflet
           city={city}
+          focus={focus}
           pins={visiblePins}
           selectedId={selected?.location_id ?? null}
           onSelect={setSelected}
         />
       )}
       <CompanyPanel pin={selected} category={cat} onClose={() => setSelected(null)} />
+      {status === 'ready' && visiblePins.length > 0 && <AlertToggle />}
       {status === 'loading' && (
         <div className="map-status" role="status">Loading companies…</div>
       )}
@@ -119,9 +136,11 @@ export default function MapShell() {
       )}
       {status === 'ready' && visiblePins.length === 0 && (
         <div className="map-empty" role="status">
-          {cat
-            ? `No ${cat} roles in ${city.city} right now — try All roles.`
-            : `No companies pinned in ${city.city} yet — we're expanding city by city.`}
+          {company
+            ? `No matching roles for this company in ${city.city} — clear the company filter.`
+            : cat
+              ? `No ${cat} roles in ${city.city} right now — try All roles.`
+              : `No companies pinned in ${city.city} yet — we're expanding city by city.`}
         </div>
       )}
     </>

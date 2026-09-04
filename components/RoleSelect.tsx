@@ -22,6 +22,7 @@ export default function RoleSelect() {
   const cities = useCities();
   const city = cityBySlug(cities, params.get('city'));
   const cat = params.get('cat');
+  const company = params.get('company');
 
   const [categories, setCategories] = useState<CategoryCount[]>([]);
 
@@ -49,7 +50,7 @@ export default function RoleSelect() {
       <span className="field-label">Role</span>
       <select
         value={cat ?? ''}
-        onChange={(e) => router.replace(homeUrl(city.slug, e.target.value || null), { scroll: false })}
+        onChange={(e) => router.replace(homeUrl({ city: city.slug, cat: e.target.value || null, company }), { scroll: false })}
         aria-label="Filter jobs by role"
       >
         <option value="">All roles{total ? ` (${total.toLocaleString()})` : ''}</option>

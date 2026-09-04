@@ -18,7 +18,7 @@ export default function CitySelector() {
   const cat = params.get('cat');
 
   function go(slug: string) {
-    router.replace(homeUrl(slug, cat), { scroll: false });
+    router.replace(homeUrl({ city: slug, cat, company: null }), { scroll: false });
   }
 
   function onCountryChange(country: string) {

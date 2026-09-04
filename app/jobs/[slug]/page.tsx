@@ -7,6 +7,7 @@ import { timeAgo, workplaceLabel } from '@/lib/format';
 import { homeUrl } from '@/lib/urls';
 import { fetchDescription } from '@/lib/ats-description';
 import AdSlot from '@/components/AdSlot';
+import SaveButton from '@/components/SaveButton';
 
 /** ISR: built on first request, re-rendered in the background every 6h. */
 export const revalidate = 21600;
@@ -140,9 +141,12 @@ export default async function JobPage({ params }: { params: Promise<{ slug: stri
           {posted && <span className="job-posted">posted {posted}</span>}
         </p>
         {job.is_active && (
-          <a className="apply-cta" href={job.apply_url} target="_blank" rel="noopener noreferrer">
-            Apply at {company.name}
-          </a>
+          <div className="cta-row">
+            <a className="apply-cta" href={job.apply_url} target="_blank" rel="noopener noreferrer">
+              Apply at {company.name}
+            </a>
+            <SaveButton jobId={job.id} size="lg" />
+          </div>
         )}
       </header>
 

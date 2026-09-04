@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { timeAgo, workplaceLabel } from '@/lib/format';
 import type { Job } from '@/lib/types';
+import SaveButton from './SaveButton';
 
 /**
  * One job in the panel list. The title links to our own /jobs/[slug]
@@ -25,6 +26,7 @@ export default function JobRow({ job }: { job: Pick<Job, 'id' | 'slug' | 'title'
           {posted && <span className="job-posted">{posted}</span>}
         </p>
       </div>
+      <SaveButton jobId={job.id} />
       <a
         className="apply-link"
         href={job.apply_url}

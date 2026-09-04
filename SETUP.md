@@ -41,6 +41,8 @@ npm run typecheck        # should print nothing (no errors)
    - `supabase/migrations/0007_cities.sql` — auto-discovered cities, multi-location companies, pin precision.
    - `supabase/migrations/0008_lean_jobs.sql` — drops stored descriptions (fetched from the ATS at page render instead) and adds the excluded flag for out-of-scope places.
    - `supabase/migrations/0009_office_lookups.sql` — bookkeeping for the office finder (`lookup_tried_at`, `source`).
+   - `supabase/migrations/0010_company_filter.sql` — companies-per-city function and the company filter on pins (searchable Company field).
+   - `supabase/migrations/0011_auth.sql` — accounts: profiles, saved jobs, job alerts, admins (owner-only RLS). Then complete §9.
 
    Each should end with "Success. No rows returned."
 4. **Table Editor** → confirm `companies`, `locations`, `jobs` exist (each shows an RLS shield icon).
@@ -215,6 +217,25 @@ From here it runs at 03:00 and 15:00 UTC daily. GitHub pauses schedules after 60
 Domain, Search Console, and AdSense steps are in `LAUNCH.md`.
 
 ---
+
+## 9. Accounts (Google sign-in) — one-time setup, ~20 minutes
+
+Sign-in is OAuth only (Google): no passwords, no emails. Saving a job or subscribing to a job alert requires signing in.
+
+1. **Google Cloud Console** → create/select a project → APIs & Services → Credentials → Create credentials → **OAuth client ID** → type *Web application*.
+   - Authorized JavaScript origins: `http://localhost:3000` (add your production domain later).
+   - Authorized redirect URIs: `https://<your-project-ref>.supabase.co/auth/v1/callback` (copy the exact URL shown in Supabase, next step).
+   - If asked to configure the OAuth consent screen: External, app name "hire.la", your email; scopes `email`, `profile`, `openid`. Testing mode is fine for now (add your own Google account as a test user).
+2. **Supabase → Authentication → Providers → Google**: enable, paste the client ID and secret, save.
+3. **Supabase → Authentication → URL Configuration**:
+   - Site URL: `http://localhost:3000` (switch to the production domain at launch).
+   - Redirect URLs: add `http://localhost:3000/**` (and later `https://<domain>/**`).
+4. Run migration `0011_auth.sql`.
+5. `npm run dev` → click **Sign in** in the sidebar → Continue with Google → you land back on the map signed in (avatar + name in the footer).
+6. Make yourself an admin (for the admin panel later): SQL Editor →
+   `insert into admins (user_id) select id from auth.users where email = 'you@gmail.com';`
+
+What signed-in users get: bookmark on every job row and job page (`/saved` lists them), and the "Email me new {role} jobs in {city}" checkbox bottom-right on the map (stores the subscription; sending arrives with the alerts feature). Sessions are cookie-based (`@supabase/ssr`); `proxy.ts` refreshes them on navigation. The browser still only holds the anon key — RLS makes every user table owner-only.
 
 ## Troubleshooting
 

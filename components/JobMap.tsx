@@ -30,6 +30,8 @@ interface Props {
   pins: Pin[];
   selectedId: string | null;
   onSelect: (pin: Pin | null) => void;
+  /** Programmatic camera target (e.g. a chosen company's office). */
+  focus?: { center: [number, number]; zoom: number } | null;
 }
 
 const SRC = 'pins';
@@ -37,7 +39,7 @@ const ICON_PX = 44; // rendered size of a pin
 const CLUSTER_RADIUS_PX = 22; // merge only when centers are this close (~half a pin)
 const INK = '#111418';
 
-export default function JobMap({ city, pins, selectedId, onSelect }: Props) {
+export default function JobMap({ city, pins, selectedId, onSelect, focus }: Props) {
   const [mapError, setMapError] = useState<string | null>(null);
   const mapStyle = useMapStyle();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -189,6 +191,13 @@ export default function JobMap({ city, pins, selectedId, onSelect }: Props) {
     if (!map) return;
     map.flyTo({ center: city.center, zoom: city.zoom, duration: 2200, essential: true });
   }, [city.slug, city.center, city.zoom]);
+
+  // ------------------------------------------------------- focus → flyTo
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !focus) return;
+    map.flyTo({ center: focus.center, zoom: focus.zoom, duration: 1400, essential: true });
+  }, [focus]);
 
   // -------------------------------------------------------- pins → data
   useEffect(() => {

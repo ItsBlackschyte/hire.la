@@ -13,11 +13,13 @@ export async function GET(req: NextRequest) {
   const params = req.nextUrl.searchParams;
   const city = { slug: (params.get('city') ?? 'los-angeles').toLowerCase().replace(/[^a-z0-9-]/g, '') };
   const cat = params.get('cat');
+  const company = params.get('company');
 
   const db = supabaseServer();
   const { data, error } = await db.rpc('pins_for_city', {
     p_city_slug: city.slug,
     p_category: cat || null,
+    p_company: company || null,
   });
 
   if (error) {
