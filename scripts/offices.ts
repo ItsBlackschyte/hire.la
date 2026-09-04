@@ -28,7 +28,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { config } from 'dotenv';
 import { pMap } from '../lib/pmap';
-import { matchCity } from '../lib/geo-dictionary';
+import { dictCity, matchCity } from '../lib/geo-dictionary';
 import { findCompanyPoi, geocodeAddress } from '../worker/geocode';
 
 config({ path: '.env.local' });
@@ -220,18 +220,30 @@ async function main() {
   if (error) throw error;
 
   // locations.city_slug → cities.slug isn't a foreign key, so city centers are fetched separately
-  const { data: cityRows } = await db.from('cities').select('slug, name, lat, lng, country');
+  const { data: cityRows, error: cityErr } = await db.from('cities').select('slug, name, lat, lng, country').limit(5000);
+  if (cityErr) throw new Error(`reading cities: ${cityErr.message}`);
   const cityBySlug = new Map((cityRows ?? []).map((c) => [c.slug, c]));
+  console.log(`${cityBySlug.size} cities known`);
 
   const rows = (data ?? []) as unknown as Row[];
   console.log(`${rows.length} placeholder locations to try (sources: ${[...SOURCES].join(', ')}${HQ_ONLY ? ', HQ only' : ''})${DRY ? ' — dry run' : ''}\n`);
 
-  const tally = { wikidata: 0, website: 0, osm: 0, none: 0 };
+  const tally = { wikidata: 0, website: 0, osm: 0, none: 0, skipped: 0 };
+  const skipped: string[] = [];
 
   await pMap(rows, 4, async (row) => {
     const company = row.companies;
-    const city = cityBySlug.get(row.city_slug);
-    if (!city) return;
+    let city = cityBySlug.get(row.city_slug) ?? null;
+    if (!city) {
+      const d = dictCity(row.city_slug); // dictionary fallback for city rows that never made it into the table
+      if (d) city = { slug: d.slug, name: d.name, lat: d.lat, lng: d.lng, country: d.country };
+    }
+    if (!city) {
+      tally.skipped++;
+      skipped.push(`${company.name} (${row.city} → ${row.city_slug})`);
+      if (!DRY) await db.from('locations').update({ lookup_tried_at: new Date().toISOString() }).eq('id', row.id);
+      return;
+    }
     let found: Found | null = null;
 
     if (!found && SOURCES.has('wikidata') && row.is_hq && company.website) found = await wikidataHQ(company.website, city);
@@ -259,7 +271,12 @@ async function main() {
     }
   });
 
-  console.log(`\nfound: wikidata ${tally.wikidata}, website ${tally.website}, osm ${tally.osm} · still placeholder ${tally.none}`);
+  console.log(`\nfound: wikidata ${tally.wikidata}, website ${tally.website}, osm ${tally.osm} · still placeholder ${tally.none} · skipped (unknown city) ${tally.skipped}`);
+  if (skipped.length) {
+    console.log('unknown-city rows (their city_slug has no row in `cities` and no dictionary entry):');
+    for (const s of skipped.slice(0, 30)) console.log(`  - ${s}`);
+    if (skipped.length > 30) console.log(`  … and ${skipped.length - 30} more`);
+  }
   console.log(`Placeholders are retried after ${RETRY_AFTER_DAYS} days. Add an address to companies.csv for any company you want pin-perfect now.`);
 }
 
