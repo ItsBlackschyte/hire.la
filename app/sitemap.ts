@@ -19,6 +19,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
     { url: `${BASE}/about`, changeFrequency: 'monthly', priority: 0.3 },
     { url: `${BASE}/privacy`, changeFrequency: 'yearly', priority: 0.1 },
+    { url: `${BASE}/terms`, changeFrequency: 'yearly', priority: 0.1 },
   ];
 
   const { data: companies } = await db

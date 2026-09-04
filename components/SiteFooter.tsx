@@ -6,6 +6,7 @@ export default function SiteFooter() {
       <Link href="/">Map</Link>
       <Link href="/about">About</Link>
       <Link href="/privacy">Privacy</Link>
+      <Link href="/terms">Terms</Link>
       <span className="site-footer-note">
         Listings belong to the hiring companies. Updated twice daily.
       </span>

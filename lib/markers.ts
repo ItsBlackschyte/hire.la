@@ -15,7 +15,9 @@ export function pinHtml(pin: Pin): string {
   const face = pin.logo_url
     ? `<img class="pin-logo" src="${esc(pin.logo_url)}" alt="" loading="lazy" decoding="async" />`
     : `<span class="pin-mono">${esc(initials(pin.company_name))}</span>`;
-  return `${face}<span class="pin-label">${esc(pin.company_name)}</span>`;
+  // The outer element is positioned by the map engine (it sets `transform` every frame);
+  // everything visual lives on .pin-body so our transitions never fight that transform.
+  return `<span class="pin-body">${face}</span><span class="pin-label">${esc(pin.company_name)}</span>`;
 }
 
 /** A cluster: up to three mini-logos and the company count. */
@@ -28,5 +30,5 @@ export function clusterHtml(count: number, leaves: Pin[]): string {
         : `<span class="cluster-logo cluster-mono">${esc(initials(p.company_name).slice(0, 1))}</span>`,
     )
     .join('');
-  return `<span class="cluster-logos">${logos}</span><span class="cluster-count">${count}</span>`;
+  return `<span class="cluster-body"><span class="cluster-logos">${logos}</span><span class="cluster-count">${count}</span></span>`;
 }

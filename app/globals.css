@@ -853,34 +853,45 @@ a { color: inherit; }
 
 /* ============================================================
    Markers: logo pins + logo clusters (shared by both engines)
+   The OUTER .pin / .cluster element is positioned by the map engine via an
+   inline `transform` updated every frame — it must carry NO transform or
+   transition of ours, or pins visibly lag behind the map while zooming.
+   All visuals + animations live on .pin-body / .cluster-body.
    ============================================================ */
 .pin,
 .cluster {
+  /* NO `position` here: MapLibre sets position:absolute on the marker element
+     and positions it with an inline transform. Overriding it made pins drift. */
+  display: block;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: none;
   font-family: inherit;
   cursor: pointer;
-  padding: 0;
-  transition: transform 140ms cubic-bezier(0.2, 0.7, 0.2, 1), opacity 140ms ease, box-shadow 140ms ease;
-  will-change: transform, opacity;
 }
 
-.pin {
-  position: relative;
-  display: block;
-  width: 44px;
-  height: 44px;
+.pin { width: 44px; height: 44px; }
+.pin:hover, .cluster:hover { z-index: 2; }
+.pin.selected { z-index: 3; }
+
+.pin-body {
+  position: absolute;
+  inset: 0;
   border-radius: 50%;
   background: #ffffff;
   border: 2px solid #ffffff;
   box-shadow: 0 1px 5px rgba(17, 20, 24, 0.28);
+  transition: transform 140ms cubic-bezier(0.2, 0.7, 0.2, 1), opacity 140ms ease, box-shadow 140ms ease;
+  will-change: transform, opacity;
 }
 
-.pin:hover { transform: scale(1.08); z-index: 2; }
+.pin:hover .pin-body { transform: scale(1.08); }
 
-.pin.selected {
+.pin.selected .pin-body {
   transform: scale(1.12);
   border-color: var(--ink);
   box-shadow: 0 0 0 3px rgba(17, 20, 24, 0.15), 0 2px 8px rgba(17, 20, 24, 0.3);
-  z-index: 3;
 }
 
 .pin-logo {
@@ -905,7 +916,6 @@ a { color: inherit; }
   font-weight: 700;
 }
 
-
 .pin-label {
   position: absolute;
   top: calc(100% + 4px);
@@ -919,7 +929,9 @@ a { color: inherit; }
   pointer-events: none;
 }
 
-.cluster {
+.cluster { height: 40px; }
+
+.cluster-body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -933,9 +945,10 @@ a { color: inherit; }
   font-size: 13px;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
+  transition: transform 140ms cubic-bezier(0.2, 0.7, 0.2, 1), opacity 140ms ease;
 }
 
-.cluster:hover { transform: scale(1.05); z-index: 2; }
+.cluster:hover .cluster-body { transform: scale(1.05); }
 
 .cluster-logos { display: inline-flex; }
 
@@ -961,15 +974,22 @@ a { color: inherit; }
   font-weight: 700;
 }
 
-.marker-enter,
-.marker-exit {
+.marker-enter .pin-body,
+.marker-exit .pin-body,
+.marker-enter .cluster-body,
+.marker-exit .cluster-body {
   opacity: 0;
   transform: scale(0.6);
-  pointer-events: none;
 }
 
-.pin:focus-visible,
-.cluster:focus-visible { outline: 2px solid var(--ink-soft); outline-offset: 3px; }
+.marker-enter,
+.marker-exit { pointer-events: none; }
+
+.pin:focus-visible .pin-body,
+.cluster:focus-visible .cluster-body { outline: 2px solid var(--ink-soft); outline-offset: 3px; }
+
+/* Belt and braces: the engine's positioning always wins over anything above. */
+.map-container .maplibregl-marker { position: absolute !important; }
 
 /* Leaflet fallback: keep markers clickable above tiles */
 .leaflet-marker-icon .pin,
@@ -977,7 +997,7 @@ a { color: inherit; }
 
 /* Dark basemap: labels need a dark halo */
 html[data-map-style="dark"] .pin-label { color: #ffffff; text-shadow: 0 0 2px #000, 0 0 4px #000, 0 1px 6px #000; }
-html[data-map-style="dark"] .cluster { border-color: #ffffff; }
+html[data-map-style="dark"] .cluster-body { border-color: #ffffff; }
 
 /* Avatars / company logos elsewhere */
 .avatar img { width: 100%; height: 100%; border-radius: 10px; object-fit: cover; }

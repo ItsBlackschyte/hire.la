@@ -123,6 +123,7 @@ export default function Sidebar() {
           <div className="popover-links">
             <Link href="/about">About</Link>
             <Link href="/privacy">Privacy</Link>
+            <Link href="/terms">Terms</Link>
           </div>
         </div>
       )}
