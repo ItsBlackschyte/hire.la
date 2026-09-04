@@ -17,9 +17,13 @@ on:
         type: boolean
         default: true
       hq_only:
-        description: "Offices: HQ rows only (fastest, biggest win)"
+        description: "Offices: HQ rows only (fast). Off = every placeholder incl. branch offices (long, use GitHub for this)"
         type: boolean
-        default: true
+        default: false
+      retry_all:
+        description: "Offices: re-attempt rows already tried in the last 60 days"
+        type: boolean
+        default: false
       run_logos:
         description: "Fetch logos"
         type: boolean
@@ -61,7 +65,8 @@ jobs:
         if: ${{ github.event_name == 'schedule' || inputs.run_offices }}
         run: |
           ARGS=""
-          if [ "${{ inputs.hq_only }}" != "false" ]; then ARGS="$ARGS --hq-only"; fi
+          if [ "${{ inputs.hq_only }}" = "true" ]; then ARGS="$ARGS --hq-only"; fi
+          if [ "${{ inputs.retry_all }}" = "true" ]; then ARGS="$ARGS --retry-all"; fi
           if [ "${{ inputs.limit || '0' }}" != "0" ]; then ARGS="$ARGS --limit ${{ inputs.limit }}"; fi
           npm run offices -- $ARGS
 

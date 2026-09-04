@@ -20,6 +20,7 @@
  *   npm run offices -- --hq-only            HQ rows only (fastest, biggest win)
  *   npm run offices -- --sources wikidata,website
  *   npm run offices -- --limit 200 --company spacex --dry
+ *   npm run offices -- --retry-all           re-attempt rows tried within the last 60 days
  *
  * Google search results are not used: scraping them violates Google's terms
  * and gets blocked; Wikidata is where that HQ knowledge comes from anyway.
@@ -50,6 +51,7 @@ const HQ_ONLY = flag('--hq-only');
 const LIMIT = Number(opt('--limit') ?? '0') || Infinity;
 const ONLY_COMPANY = opt('--company');
 const SOURCES = new Set((opt('--sources') ?? 'wikidata,website,osm').split(','));
+const RETRY_ALL = flag('--retry-all'); // ignore the 60-day "already tried" lock
 const RETRY_AFTER_DAYS = 60;
 const MAX_KM = 60;
 
@@ -208,12 +210,24 @@ async function websiteOffice(website: string, citySlug: string, city: { lat: num
 // ---------------------------------------------------------------------- main
 
 async function main() {
+  // ---- explain the queue before doing anything ----
+  const since = new Date(Date.now() - RETRY_AFTER_DAYS * 86400000).toISOString();
+  const count = async (build: (q: ReturnType<typeof db.from>) => unknown) => {
+    const { count } = await (build(db.from('locations')) as unknown as PromiseLike<{ count: number | null }>);
+    return count ?? 0;
+  };
+  const totalPlaceholders = await count((q) => q.select('id', { count: 'exact', head: true }).eq('precision', 'city'));
+  const hqPlaceholders = await count((q) => q.select('id', { count: 'exact', head: true }).eq('precision', 'city').eq('is_hq', true));
+  const locked = await count((q) => q.select('id', { count: 'exact', head: true }).eq('precision', 'city').gte('lookup_tried_at', since));
+  const upgraded = await count((q) => q.select('id', { count: 'exact', head: true }).in('source', ['wikidata', 'website', 'osm']));
+  console.log(`placeholders: ${totalPlaceholders} total (${hqPlaceholders} HQ, ${totalPlaceholders - hqPlaceholders} branch offices) · ${locked} tried in the last ${RETRY_AFTER_DAYS} days${RETRY_ALL ? ' (retrying anyway)' : ''} · ${upgraded} already upgraded to real offices`);
+
   let q = db
     .from('locations')
     .select('id, is_hq, city, city_slug, companies!inner ( slug, name, website )')
     .eq('precision', 'city')
-    .or(`lookup_tried_at.is.null,lookup_tried_at.lt.${new Date(Date.now() - RETRY_AFTER_DAYS * 86400000).toISOString()}`)
     .order('is_hq', { ascending: false });
+  if (!RETRY_ALL) q = q.or(`lookup_tried_at.is.null,lookup_tried_at.lt.${since}`);
   if (HQ_ONLY) q = q.eq('is_hq', true);
   if (ONLY_COMPANY) q = q.eq('companies.slug', ONLY_COMPANY);
   const { data, error } = await q.limit(LIMIT === Infinity ? 5000 : LIMIT);
